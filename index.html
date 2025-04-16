@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Transitions Suite (Enhanced Visuals)</title>
+    <title>Quantum Transitions Suite (Enhanced Visuals V2 - Fixed Spin)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -13,96 +13,117 @@
             /* General */
             --background-color: #030308; /* Slightly deep blue/black */
             --base-text-color: #e8e8e8;
-            --page-glow-opacity: 0.15; /* Opacity for subtle page glow */
+            --page-glow-opacity: 0.18; /* Slightly more intense base glow */
             --page-glow-color: rgba(100, 120, 200, 0.5); /* Default glow */
+            --mouse-x: 50%; /* For reactive glow */
+            --mouse-y: 50%; /* For reactive glow */
 
             /* Spin/Entangled Shared */
-            --transition-duration: 1800ms; /* Base duration, can be overridden per effect */
-            --particle-base-length: 4.8;   /* Slightly longer */
-            --particle-base-thickness: 1.4; /* Slightly thicker */
-            --vibration-max-strength: 2.2; /* Slightly more vibration */
-            --particle-glow-blur: 5;       /* More pronounced glow */
-            --particle-glow-opacity: 0.75; /* More visible glow */
-            --rotation-speed-factor: 0.045; /* Slightly faster rotation */
+            --transition-duration: 1800ms;
+            --particle-base-length: 4.8;
+            --particle-base-thickness: 1.4;
+            --vibration-max-strength: 2.2;
+            --particle-glow-blur: 5;
+            --particle-glow-opacity: 0.75;
+            --rotation-speed-factor: 0.045;
+            --secondary-burst-probability: 0.003; /* Probability of a secondary burst per particle per frame */
 
-            /* --- Grid (Entangled) --- */
-            --grid-color: rgba(100, 110, 160, 0.06); /* Slightly more visible grid */
-            --grid-spacing: 45px;         /* Tighter grid */
-            --grid-warp-intensity: 6;     /* More warp */
+            /* --- Grid (Entangled & Idle) --- */
+            --grid-color: rgba(100, 110, 160, 0.06);
+            --grid-spacing: 45px;
+            --grid-warp-intensity: 6;
+            --idle-grid-warp-intensity: 0.5; /* Much subtler warp for idle state */
+            --idle-grid-opacity: 0.04; /* Faint idle grid */
 
             /* --- Snapping (Entangled) --- */
-            --snap-threshold: 0.9; /* Snap slightly earlier */
-            --snap-power: 3.5;     /* Sharper snap */
+            --snap-threshold: 0.9;
+            --snap-power: 3.5;
 
             /* Entangled Specific */
             --depth-min-scale: 0.65;
             --depth-max-scale: 1.25;
-            --streak-opacity: 0.20;        /* More visible streaks */
+            --streak-opacity: 0.20;
             --velocity-rotation-factor: 0.009;
             --hue-shift-intensity: 90;
             --saturation-pulse: 0.25;
-            --curve-intensity: 0.28;       /* Slightly more curve */
+            --curve-intensity: 0.28;
             --glitch-probability: 0.0004;
             --glitch-displacement: 14px;
             --glitch-color: "#fff0dd";
 
             /* Spin Specific */
-            --particle-length: 4.5; /* Base length for Spin */
-            --particle-thickness: 1.3; /* Base thickness for Spin */
-            --ghost-opacity: 0.15; /* More visible ghost */
-            --spin-pulse-color: rgba(255, 255, 255, 0.05); /* Color for initial pulse */
+            --particle-length: 4.5;
+            --particle-thickness: 1.3;
+            --ghost-opacity: 0.15;
+            --spin-pulse-color: rgba(255, 255, 255, 0.05);
 
             /* Decoherence Specific */
-            --deco-text-color: #b0b0c0; /* Slightly bluish text */
+            --deco-text-color: #b0b0c0;
             --deco-accent-color: #00bbff;
-            --deco-glitch-color-1: #ff33cc; /* Brighter glitch colors */
+            --deco-glitch-color-1: #ff33cc;
             --deco-glitch-color-2: #33ffcc;
             --deco-glitch-color-3: #ffee33;
             --deco-grid-color: rgba(0, 187, 255, 0.1);
-            --deco-ghost-color: rgba(0, 187, 255, 0.6); /* Used in ghosting animation */
-            --corruption-char-pool: "█▓▒░<>{}[]/\\|~$^?#@!*+%&="; /* Slightly larger pool */
+            --deco-ghost-color: rgba(0, 187, 255, 0.6);
+            --corruption-char-pool: "█▓▒░<>{}[]/\\|~$^?#@!*+%&=";
             --corruption-rate: 0.28;
-            --corruption-interval: 50ms; /* Interval for text corruption updates */
-            --deco-glitch-duration: 900ms;  /* Slightly longer glitch phase */
-            --deco-burst-duration: 180ms; /* Duration of the color burst overlay */
-            --deco-settle-duration: 450ms;  /* Duration for the incoming section to settle (bounce) */
-            --deco-ghost-duration: 500ms; /* Duration for the outgoing section to fade/smear */
-            --deco-perspective: 1200px; /* Perspective for 3D effects */
-            --deco-max-3d-rotate: 10deg;   /* More rotation during glitch */
-            --deco-max-tear-inset: 22%; /* Max inset for tearing effect */
-            --deco-max-smear-scale: 25; /* Influences ghost smear effect */
-            --deco-scanline-opacity: 0.03; /* Opacity of scanlines */
-            --deco-datastream-opacity: 0.12; /* Opacity of background data stream */
-            --deco-chromatic-offset: 1.5px; /* Offset for chromatic aberration text shadow */
+            --corruption-interval: 50ms;
+            --deco-glitch-duration: 900ms;
+            --deco-burst-duration: 180ms;
+            --deco-settle-duration: 450ms;
+            --deco-ghost-duration: 500ms;
+            --deco-perspective: 1200px;
+            --deco-max-3d-rotate: 10deg;
+            --deco-max-tear-inset: 22%;
+            --deco-max-smear-scale: 25;
+            --deco-scanline-opacity: 0.03;
+            --deco-datastream-opacity: 0.12;
+            --deco-chromatic-offset: 1.5px;
+            --deco-block-flash-opacity: 0.08; /* Opacity for block flash overlay */
+
+            /* Idle Animations */
+            --idle-text-pulse-opacity: 0.15;
+            --idle-jitter-strength: 0.25px; /* Very subtle jitter */
+            --orb-size: 6px;
+            --orb-color: rgba(180, 200, 255, 0.15);
         }
 
         /* --- Base & Reset Styles --- */
         *, *::before, *::after { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: var(--background-color); color: var(--base-text-color); font-family: 'Roboto Mono', monospace; position: relative; perspective: var(--deco-perspective); }
 
-        /* --- Subtle Background & Page Glow --- */
-        body::before { /* Page Glow */
-            content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 30%, var(--page-glow-color) 100%);
-            opacity: var(--page-glow-opacity);
-            mix-blend-mode: soft-light; /* Softer blend */
-            z-index: 0; pointer-events: none;
-            transition: background 1.5s ease-out; /* Smooth glow color transition */
-            will-change: background; /* Hint for transition */
+        /* --- Background Layers & Effects --- */
+        #backgroundCanvas { /* NEW: Canvas for idle effects */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; /* Below everything except maybe body background */
+            pointer-events: none;
         }
+
+        body::before { /* Page Glow - Now reactive */
+            content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse 80% 90% at var(--mouse-x) var(--mouse-y), /* Use CSS vars for position */
+                                        transparent 20%,
+                                        var(--page-glow-color) 100%);
+            opacity: var(--page-glow-opacity);
+            mix-blend-mode: soft-light;
+            z-index: -1; /* Above bg canvas, below noise */
+            pointer-events: none;
+            transition: background 1.5s ease-out, --page-glow-color 1.5s ease-out; /* Smooth glow color/position transition */
+            will-change: background, --page-glow-color;
+        }
+
         body::after { /* Subtle Noise Overlay */
             content: ""; position: fixed; top: -50%; left: -50%; right: -50%; bottom: -50%; width: 200%; height: 200%;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=');
-            background-size: 150px 150px; /* Smaller grain */
-            opacity: 0.015; /* Very subtle */
+            background-size: 150px 150px;
+            opacity: 0.015;
             animation: noiseAnim 15s linear infinite alternate;
-            z-index: 0; pointer-events: none;
-            will-change: transform; /* Hint for animation */
+            z-index: 0; /* Above glow, below main */
+            pointer-events: none;
+            will-change: transform;
         }
-        @keyframes noiseAnim {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(5%, 10%); }
-        }
+        @keyframes noiseAnim { 0% { transform: translate(0, 0); } 100% { transform: translate(5%, 10%); } }
 
         main { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 1; /* Ensure main is above overlays */ }
 
@@ -110,29 +131,27 @@
         .section {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 35px; /* Slightly more padding */
+            text-align: center; padding: 35px;
             opacity: 0; visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0s linear 0.2s; /* Faster fade */
+            transition: opacity 0.2s ease, visibility 0s linear 0.2s;
             pointer-events: none; z-index: 1; user-select: none;
-            /* Hints for performance, especially for Decoherence */
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
+            transform-style: preserve-3d; backface-visibility: hidden;
             clip-path: inset(0% 0% 0% 0%);
             will-change: opacity, transform, clip-path, filter;
         }
         .section.active { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.2s ease, visibility 0s linear 0s; z-index: 2; }
-        .section.measuring { z-index: -1; opacity: 0.001; visibility: visible; pointer-events: none; position: fixed; } /* For text measurement */
+        .section.measuring { z-index: -1; opacity: 0.001; visibility: visible; pointer-events: none; position: fixed; }
 
-        /* --- Headings & Paragraphs (Consolidated) --- */
-        h1 { font-size: clamp(2rem, 5.5vw, 4rem); margin-bottom: 20px; font-weight: 500; max-width: 85%; text-shadow: 0 0 8px rgba(230, 230, 255, 0.1); }
-        p { font-size: clamp(0.9rem, 1.9vw, 1.1rem); max-width: 70%; line-height: 1.6; color: #c0c0c8; /* Slightly lighter gray */ text-shadow: 0 0 5px rgba(200, 200, 220, 0.05); }
-        .section-data, .system-colors { display: none; } /* Hide data elements */
+        /* --- Headings & Paragraphs --- */
+        h1 { font-size: clamp(2rem, 5.5vw, 4rem); margin-bottom: 20px; font-weight: 500; max-width: 85%; text-shadow: 0 0 8px rgba(230, 230, 255, 0.1); position: relative; /* Needed for pseudo-elements potentially */ }
+        p { font-size: clamp(0.9rem, 1.9vw, 1.1rem); max-width: 70%; line-height: 1.6; color: #c0c0c8; text-shadow: 0 0 5px rgba(200, 200, 220, 0.05); position: relative; }
+        .section-data, .system-colors { display: none; }
 
-        /* --- Canvas Styling --- */
+        /* --- Transition Canvas Styling --- */
         #transitionCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: none; z-index: 10; background-color: transparent; pointer-events: none;
-            mix-blend-mode: screen; /* Brighter particles on dark background */
+            mix-blend-mode: screen;
         }
 
         /* === Styles Specific to System Transition === */
@@ -142,144 +161,191 @@
         #section-decoherence-1, #section-decoherence-2 {
             max-width: 780px; min-height: 420px; padding: 55px;
             border: 1px solid rgba(0, 187, 255, 0.08);
-            background: rgba(20, 20, 35, 0.15); /* Slightly darker, bluer bg */
-            backdrop-filter: blur(3px); /* Subtle blur behind decoherence sections */
+            background: rgba(20, 20, 35, 0.15);
+            backdrop-filter: blur(3px);
             box-shadow: 0 0 25px rgba(0, 187, 255, 0.05);
             font-family: 'IBM Plex Mono', Consolas, Monaco, monospace;
             color: var(--deco-text-color);
-            /* Ensure 3D context for children */
             transform-style: preserve-3d;
         }
+        /* Pulsing border for active decoherence section */
+        #section-decoherence-1.active, #section-decoherence-2.active {
+            --current-border-color: rgba(0, 187, 255, 0.1);
+            border-color: var(--current-border-color);
+            box-shadow: 0 0 25px rgba(0, 187, 255, 0.1), 0 0 10px var(--current-border-color) inset;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            #section-decoherence-1.active, #section-decoherence-2.active {
+                animation: pulseBorder 4s infinite ease-in-out;
+            }
+        }
+        @keyframes pulseBorder {
+            0%, 100% { --current-border-color: rgba(0, 187, 255, 0.1); }
+            50% { --current-border-color: rgba(0, 187, 255, 0.35); }
+        }
+
+
         #section-decoherence-1 h1, #section-decoherence-2 h1 {
             font-size: 3rem; margin-bottom: 2rem; color: var(--deco-accent-color); font-weight: 700;
-            position: relative; z-index: 3; /* Keep text above potential overlays */
+            position: relative; z-index: 3;
             animation: accentPulse 6s infinite cubic-bezier(0.4, 0, 0.6, 1) alternate;
-            transform: translateZ(18px); /* Lift text slightly */
-            text-shadow: 0 0 15px rgba(0, 187, 255, 0.4), 0 0 5px rgba(255, 255, 255, 0.2); /* Stronger shadow */
+            transform: translateZ(18px);
+            text-shadow: 0 0 15px rgba(0, 187, 255, 0.4), 0 0 5px rgba(255, 255, 255, 0.2);
         }
          #section-decoherence-1 p, #section-decoherence-2 p {
             font-size: 1.05rem; margin-bottom: 3.5rem; position: relative; z-index: 3;
-            max-width: 75%; transform: translateZ(10px); /* Lift text slightly */
-             color: var(--deco-text-color);
-             line-height: 1.75;
+            max-width: 75%; transform: translateZ(10px);
+             color: var(--deco-text-color); line-height: 1.75;
         }
-        /* Enhanced Decoherence Button */
         .nav-button {
             display: inline-block; padding: 16px 38px; border: 1px solid var(--deco-accent-color);
             color: var(--deco-accent-color); background-color: rgba(0, 187, 255, 0.12);
             text-decoration: none; font-size: 1.05rem; font-family: inherit; cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1.2); /* Faster, slightly bouncy */
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1.2);
             z-index: 3; position: relative;
             animation: accentPulse 6s infinite cubic-bezier(0.4, 0, 0.6, 1) alternate; animation-delay: 0.5s;
-            transform: translateZ(25px); /* Lift button */
-            box-shadow: 0 4px 18px rgba(0, 187, 255, 0.25), inset 0 0 5px rgba(0, 187, 255, 0.1); /* Added inset */
-            text-shadow: 0 0 8px rgba(0, 187, 255, 0.3);
-            border-radius: 3px; /* Subtle rounding */
+            transform: translateZ(25px);
+            box-shadow: 0 4px 18px rgba(0, 187, 255, 0.25), inset 0 0 5px rgba(0, 187, 255, 0.1);
+            text-shadow: 0 0 8px rgba(0, 187, 255, 0.3); border-radius: 3px;
         }
         .nav-button:hover {
             background-color: var(--deco-accent-color); color: var(--background-color);
-            transform: translateZ(30px) translateY(-5px) scale(1.03); /* More lift */
-            box-shadow: 0 10px 30px rgba(0, 187, 255, 0.5), inset 0 0 8px rgba(255, 255, 255, 0.2); /* Stronger hover shadow */
-            text-shadow: none; /* Remove text shadow when background is light */
+            transform: translateZ(30px) translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 187, 255, 0.5), inset 0 0 8px rgba(255, 255, 255, 0.2);
+            text-shadow: none;
         }
-        .nav-button:active {
-            transform: translateZ(22px) translateY(-2px) scale(0.95); /* Sharper active press */
-            box-shadow: 0 3px 10px rgba(0, 187, 255, 0.3), inset 0 0 8px rgba(0, 0, 0, 0.2);
-        }
+        .nav-button:active { transform: translateZ(22px) translateY(-2px) scale(0.95); box-shadow: 0 3px 10px rgba(0, 187, 255, 0.3), inset 0 0 8px rgba(0, 0, 0, 0.2); }
 
         /* --- Decoherence Overlays --- */
-        #glitch-overlay, #color-burst-overlay, #data-stream-overlay, #grid-overlay {
+        #glitch-overlay, #color-burst-overlay, #data-stream-overlay, #grid-overlay, #block-flash-overlay { /* Added block-flash */
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; opacity: 0; visibility: hidden;
-            will-change: opacity, background, visibility, transform; /* Hint for animations */
-            z-index: 10; /* Keep overlays above canvas but below active section text potentially */
+            will-change: opacity, background, visibility, transform;
+            z-index: 10; /* Default z-index for overlays */
         }
-        #glitch-overlay { background: repeating-linear-gradient( transparent, transparent 1px, rgba(255, 255, 255, var(--deco-scanline-opacity)) 2px, rgba(0, 0, 0, calc(var(--deco-scanline-opacity) * 1.5)) 3px ), repeating-linear-gradient(90deg, rgba(255, 0, 255, 0.02), rgba(0, 255, 255, 0.02) 50%, rgba(255, 0, 255, 0.02) 100%); background-size: 100% 4px, 10px 100%; mix-blend-mode: overlay; z-index: 12; } /* Added vertical faint lines, highest z-index */
-        #color-burst-overlay { z-index: 11; background-color: var(--deco-glitch-color-1); mix-blend-mode: color-dodge; } /* Brighter blend */
-        #data-stream-overlay { z-index: 9; font-family: 'IBM Plex Mono', monospace; font-size: 9px; /* Slightly larger */ line-height: 1.0; color: rgba(0, 255, 170, 0.4); white-space: pre; overflow: hidden; }
+        #glitch-overlay { background: repeating-linear-gradient( transparent, transparent 1px, rgba(255, 255, 255, var(--deco-scanline-opacity)) 2px, rgba(0, 0, 0, calc(var(--deco-scanline-opacity) * 1.5)) 3px ), repeating-linear-gradient(90deg, rgba(255, 0, 255, 0.02), rgba(0, 255, 255, 0.02) 50%, rgba(255, 0, 255, 0.02) 100%); background-size: 100% 4px, 10px 100%; mix-blend-mode: overlay; z-index: 13; } /* Highest overlay */
+        #color-burst-overlay { z-index: 12; background-color: var(--deco-glitch-color-1); mix-blend-mode: color-dodge; }
+        #block-flash-overlay { /* NEW */
+             z-index: 11; font-family: monospace; font-size: 16px; line-height: 1; color: var(--deco-accent-color);
+             white-space: pre; overflow: hidden; text-align: center; display: flex; justify-content: center; align-items: center;
+             mix-blend-mode: screen;
+             opacity: 0; /* Controlled by class/animation */
+         }
+        #data-stream-overlay { z-index: 9; font-family: 'IBM Plex Mono', monospace; font-size: 9px; line-height: 1.0; color: rgba(0, 255, 170, 0.4); white-space: pre; overflow: hidden; }
         #grid-overlay { z-index: 8; background-image: linear-gradient(var(--deco-grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--deco-grid-color) 1px, transparent 1px); background-size: 50px 50px; opacity: 0; filter: blur(0.5px); }
 
         /* --- Decoherence State Classes & Animations --- */
         body.transitioning-decoherence #glitch-overlay { visibility: visible; opacity: 0.5; animation: scanlines calc(var(--deco-glitch-duration) / 15) infinite linear, glitchFlicker 0.5s infinite steps(1, end); }
         body.transitioning-decoherence #color-burst-overlay { visibility: visible; opacity: 0; animation: colorBurst var(--deco-burst-duration) steps(5, end) forwards; animation-delay: calc(var(--deco-glitch-duration) - var(--deco-burst-duration) * 1.1); }
-        body.transitioning-decoherence #data-stream-overlay { visibility: visible; opacity: var(--deco-datastream-opacity); animation: dataStreamScroll calc(var(--deco-glitch-duration) * 0.8) linear infinite; } /* Slightly faster scroll */
+        body.transitioning-decoherence #data-stream-overlay { visibility: visible; opacity: var(--deco-datastream-opacity); animation: dataStreamScroll calc(var(--deco-glitch-duration) * 0.8) linear infinite; }
         body.transitioning-decoherence #grid-overlay { visibility: visible; animation: gridDistort var(--deco-glitch-duration) ease-in-out forwards; }
+        /* Activate block flash during glitch */
+        body.transitioning-decoherence #block-flash-overlay.active {
+             visibility: visible;
+             opacity: var(--deco-block-flash-opacity);
+             animation: blockFlash 0.08s steps(1, end) infinite;
+         }
+        @keyframes blockFlash { 0%, 100% { opacity: 0; } 50% { opacity: var(--deco-block-flash-opacity); } }
 
         /* Glitching State (Outgoing Section) */
-        .section.glitching {
-             z-index: 1; opacity: 1 !important; visibility: visible !important;
-             animation:
-                section3D var(--deco-glitch-duration) cubic-bezier(0.3, 0, 0.7, 1) forwards,
-                sectionTear var(--deco-glitch-duration) steps(10, end) forwards,
-                screenShake 0.1s 4 linear alternate;
-             will-change: transform, clip-path, filter; /* Explicit will-change */
-         }
-        /* Chromatic Aberration Effect on Text during Glitch */
-        .section.glitching h1,
-        .section.glitching p,
-        .section.glitching .nav-button {
-             /* Apply chromatic aberration using text-shadow */
-             text-shadow:
-                /* Red channel offset */
-                var(--deco-chromatic-offset) 0 0 rgba(255, 0, 0, 0.5),
-                /* Cyan channel offset */
-                calc(var(--deco-chromatic-offset) * -1) 0 0 rgba(0, 255, 255, 0.5),
-                /* Original accent glow (keep it!) */
-                0 0 15px rgba(0, 187, 255, 0.4),
-                0 0 5px rgba(255, 255, 255, 0.2);
-             animation: textFlicker 0.15s infinite alternate; /* Add subtle flicker */
-             will-change: text-shadow, filter;
-         }
+        .section.glitching { z-index: 1; opacity: 1 !important; visibility: visible !important; animation: section3D var(--deco-glitch-duration) cubic-bezier(0.3, 0, 0.7, 1) forwards, sectionTear var(--deco-glitch-duration) steps(10, end) forwards, screenShake 0.1s 4 linear alternate; will-change: transform, clip-path, filter; }
+        .section.glitching h1, .section.glitching p, .section.glitching .nav-button { text-shadow: var(--deco-chromatic-offset) 0 0 rgba(255, 0, 0, 0.5), calc(var(--deco-chromatic-offset) * -1) 0 0 rgba(0, 255, 255, 0.5), 0 0 15px rgba(0, 187, 255, 0.4), 0 0 5px rgba(255, 255, 255, 0.2); animation: textFlicker 0.15s infinite alternate; will-change: text-shadow, filter; }
 
         /* Settling State (Incoming Section) */
-        .section.settling {
-            animation: scaleSettle var(--deco-settle-duration) cubic-bezier(0.1, 1.5, 0.3, 1) forwards; /* Bouncier easing */
-            will-change: transform, opacity, filter;
-        }
+        .section.settling { animation: scaleSettle var(--deco-settle-duration) cubic-bezier(0.1, 1.5, 0.3, 1) forwards; will-change: transform, opacity, filter; }
 
         /* Ghosting State (Outgoing Section after Glitch) */
-        .section.ghosting {
-            z-index: 0; pointer-events: none;
-            animation: ghostFadeSmear var(--deco-ghost-duration) ease-in-out forwards;
-            /* Need to override glitching styles that might persist */
-            filter: none; /* Reset filter from glitch state if needed */
-            color: var(--deco-ghost-color); /* Apply ghost color */
-            will-change: transform, opacity, filter, clip-path, color;
-         }
-        /* Ensure ghost text doesn't inherit glitch text-shadow */
-        .section.ghosting h1,
-        .section.ghosting p,
-        .section.ghosting .nav-button {
-            text-shadow: none;
-            animation: none; /* Stop text flicker */
-            color: inherit; /* Inherit ghost color */
-        }
+        .section.ghosting { z-index: 0; pointer-events: none; animation: ghostFadeSmear var(--deco-ghost-duration) ease-in-out forwards; filter: none; color: var(--deco-ghost-color); will-change: transform, opacity, filter, clip-path, color; }
+        .section.ghosting h1, .section.ghosting p, .section.ghosting .nav-button { text-shadow: none; animation: none; color: inherit; }
 
 
-        /* --- Combined Keyframes (Enhanced) --- */
-        @keyframes scanlines { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 4px, 5px 0; } } /* Animate vertical lines too */
+        /* --- Keyframes (Includes Existing & New Idle/Decoherence) --- */
+        @keyframes scanlines { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 4px, 5px 0; } }
         @keyframes glitchFlicker { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.6; } }
         @keyframes textFlicker { 0% { filter: brightness(1); } 100% { filter: brightness(0.9) saturate(0.8); } }
         @keyframes accentPulse { from { filter: brightness(0.8) saturate(0.8); text-shadow: 0 0 12px rgba(0, 187, 255, 0.2); } to { filter: brightness(1.2) saturate(1.2); text-shadow: 0 0 20px rgba(0, 187, 255, 0.5), 0 0 5px rgba(255, 255, 255, 0.2); } }
-        @keyframes colorBurst { 0% { background-color: var(--deco-glitch-color-1); opacity: 0; } 20% { opacity: 0.8; } 40% { background-color: var(--deco-glitch-color-2); opacity: 0.9; } 60% { background-color: var(--deco-glitch-color-3); opacity: 0.85; } 80% { background-color: #ffffff; opacity: 0.6; } 100% { opacity: 0; } } /* Added white flash */
-        @keyframes dataStreamScroll { from { transform: translateY(0%); } to { transform: translateY(-50%); } } /* Slower scroll looks more like loop */
-        @keyframes gridDistort { 0% { opacity: 0; background-size: 50px 50px; transform: skew(0deg) scale(1); filter: blur(0.5px); } 10% { opacity: 0.6; filter: blur(0px); } 30% { opacity: 0.4; background-size: 45px 55px; transform: skew(-4deg, 3deg) scale(1.04); } 50% { opacity: 0.7; background-size: 60px 40px; } 70% { opacity: 0.3; background-size: 52px 52px; transform: skew(3deg, -5deg) scale(0.98); filter: blur(1px); } 90% { opacity: 0.5; } 100% { opacity: 0; background-size: 50px 50px; transform: skew(0deg) scale(1); visibility: hidden; filter: blur(0.5px); } } /* More distortion */
-        @keyframes section3D { /* More dynamic rotation */ 0%, 100% { transform: rotateX(0) rotateY(0) rotateZ(0) scale(1); } 25% { transform: rotateX(calc(var(--deco-max-3d-rotate) * -1.1)) rotateY(calc(var(--deco-max-3d-rotate) * 0.8)) rotateZ(-1.8deg) scale(0.97); } 50% { transform: rotateX(calc(var(--deco-max-3d-rotate) * 0.7)) rotateY(calc(var(--deco-max-3d-rotate) * -1.2)) rotateZ(2.5deg) scale(1.02); } 75% { transform: rotateX(calc(var(--deco-max-3d-rotate) * 1.2)) rotateY(calc(var(--deco-max-3d-rotate) * 0.4)) rotateZ(-2.0deg) scale(0.98); } }
-        @keyframes sectionTear { /* More steps, more varied shapes */ 0%, 100% { clip-path: inset(0% 0% 0% 0%); } 15% { clip-path: polygon(0 0, 100% var(--deco-max-tear-inset), 100% 100%, 0 calc(100% - var(--deco-max-tear-inset))); } 30% { clip-path: inset(var(--deco-max-tear-inset) 4% 12% calc(var(--deco-max-tear-inset))); } 45% { clip-path: polygon(calc(var(--deco-max-tear-inset) * 0.8) var(--deco-max-tear-inset), 100% 0, calc(100% - var(--deco-max-tear-inset)) 100%, 0% calc(100% - var(--deco-max-tear-inset))); } 60% { clip-path: inset(10% calc(var(--deco-max-tear-inset)*1.2) 5% 5%); } 75% { clip-path: polygon(0% var(--deco-max-tear-inset), calc(100% - var(--deco-max-tear-inset)) var(--deco-max-tear-inset), 100% 100%, var(--deco-max-tear-inset) calc(100% - 5%)); } 90% { clip-path: inset(5% 5% var(--deco-max-tear-inset) calc(var(--deco-max-tear-inset)*0.9)); } }
-        @keyframes scaleSettle { /* Bouncier Settle for incoming section */ 0% { transform: scale(1.3) translateZ(0); opacity: 0; filter: brightness(1.6) blur(1px); } 60% { transform: scale(0.95) translateZ(0); opacity: 1; filter: brightness(1) blur(0); } 80% { transform: scale(1.03) translateZ(0); } 95% { transform: scale(0.99) translateZ(0); } 100% { transform: scale(1) translateZ(0); opacity: 1; filter: brightness(1) blur(0); } }
-        @keyframes ghostFadeSmear { /* Enhanced ghosting with smear/scale */ 0% { opacity: 0.8; filter: blur(0.8px) saturate(1.2); transform: scale(1.01); color: var(--deco-ghost-color); clip-path: inset(0% 0% 0% 0%); } 30% { transform: scale(1.02) scaleY(1.3); clip-path: inset(0 30% 0 30%); } /* Vertical stretch/clip */ 60% { opacity: 0.5; filter: blur(3px) saturate(1.5); transform: scale(0.98) scaleX(1.5); clip-path: inset(30% 0 30% 0); color: var(--deco-ghost-color); } /* Horizontal stretch/clip */ 85% { opacity: 0.15; filter: blur(6px) saturate(1.0); transform: scale(0.96); clip-path: inset(40% 40% 40% 40%); } 100% { opacity: 0; filter: blur(12px) saturate(0); transform: scale(0.94); visibility: hidden; color: var(--deco-ghost-color); clip-path: inset(50% 50% 50% 50%); } }
-        @keyframes screenShake { /* Simple screen shake */ 0%, 100% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(2px, -1px) rotate(-0.2deg); } 50% { transform: translate(-2px, 1px) rotate(0.1deg); } 75% { transform: translate(1px, 2px) rotate(0.2deg); } }
+        @keyframes colorBurst { 0% { background-color: var(--deco-glitch-color-1); opacity: 0; } 20% { opacity: 0.8; } 40% { background-color: var(--deco-glitch-color-2); opacity: 0.9; } 60% { background-color: var(--deco-glitch-color-3); opacity: 0.85; } 80% { background-color: #ffffff; opacity: 0.6; } 100% { opacity: 0; } }
+        @keyframes dataStreamScroll { from { transform: translateY(0%); } to { transform: translateY(-50%); } }
+        @keyframes gridDistort { 0% { opacity: 0; background-size: 50px 50px; transform: skew(0deg) scale(1); filter: blur(0.5px); } 10% { opacity: 0.6; filter: blur(0px); } 30% { opacity: 0.4; background-size: 45px 55px; transform: skew(-4deg, 3deg) scale(1.04); } 50% { opacity: 0.7; background-size: 60px 40px; } 70% { opacity: 0.3; background-size: 52px 52px; transform: skew(3deg, -5deg) scale(0.98); filter: blur(1px); } 90% { opacity: 0.5; } 100% { opacity: 0; background-size: 50px 50px; transform: skew(0deg) scale(1); visibility: hidden; filter: blur(0.5px); } }
+        @keyframes section3D { 0%, 100% { transform: rotateX(0) rotateY(0) rotateZ(0) scale(1); } 25% { transform: rotateX(calc(var(--deco-max-3d-rotate) * -1.1)) rotateY(calc(var(--deco-max-3d-rotate) * 0.8)) rotateZ(-1.8deg) scale(0.97); } 50% { transform: rotateX(calc(var(--deco-max-3d-rotate) * 0.7)) rotateY(calc(var(--deco-max-3d-rotate) * -1.2)) rotateZ(2.5deg) scale(1.02); } 75% { transform: rotateX(calc(var(--deco-max-3d-rotate) * 1.2)) rotateY(calc(var(--deco-max-3d-rotate) * 0.4)) rotateZ(-2.0deg) scale(0.98); } }
+        @keyframes sectionTear { 0%, 100% { clip-path: inset(0% 0% 0% 0%); } 15% { clip-path: polygon(0 0, 100% var(--deco-max-tear-inset), 100% 100%, 0 calc(100% - var(--deco-max-tear-inset))); } 30% { clip-path: inset(var(--deco-max-tear-inset) 4% 12% calc(var(--deco-max-tear-inset))); } 45% { clip-path: polygon(calc(var(--deco-max-tear-inset) * 0.8) var(--deco-max-tear-inset), 100% 0, calc(100% - var(--deco-max-tear-inset)) 100%, 0% calc(100% - var(--deco-max-tear-inset))); } 60% { clip-path: inset(10% calc(var(--deco-max-tear-inset)*1.2) 5% 5%); } 75% { clip-path: polygon(0% var(--deco-max-tear-inset), calc(100% - var(--deco-max-tear-inset)) var(--deco-max-tear-inset), 100% 100%, var(--deco-max-tear-inset) calc(100% - 5%)); } 90% { clip-path: inset(5% 5% var(--deco-max-tear-inset) calc(var(--deco-max-tear-inset)*0.9)); } }
+        @keyframes scaleSettle { 0% { transform: scale(1.3) translateZ(0); opacity: 0; filter: brightness(1.6) blur(1px); } 60% { transform: scale(0.95) translateZ(0); opacity: 1; filter: brightness(1) blur(0); } 80% { transform: scale(1.03) translateZ(0); } 95% { transform: scale(0.99) translateZ(0); } 100% { transform: scale(1) translateZ(0); opacity: 1; filter: brightness(1) blur(0); } }
+        @keyframes ghostFadeSmear { 0% { opacity: 0.8; filter: blur(0.8px) saturate(1.2); transform: scale(1.01); color: var(--deco-ghost-color); clip-path: inset(0% 0% 0% 0%); } 30% { transform: scale(1.02) scaleY(1.3); clip-path: inset(0 30% 0 30%); } 60% { opacity: 0.5; filter: blur(3px) saturate(1.5); transform: scale(0.98) scaleX(1.5); clip-path: inset(30% 0 30% 0); color: var(--deco-ghost-color); } 85% { opacity: 0.15; filter: blur(6px) saturate(1.0); transform: scale(0.96); clip-path: inset(40% 40% 40% 40%); } 100% { opacity: 0; filter: blur(12px) saturate(0); transform: scale(0.94); visibility: hidden; color: var(--deco-ghost-color); clip-path: inset(50% 50% 50% 50%); } }
+        @keyframes screenShake { 0%, 100% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(2px, -1px) rotate(-0.2deg); } 50% { transform: translate(-2px, 1px) rotate(0.1deg); } 75% { transform: translate(1px, 2px) rotate(0.2deg); } }
+
+        /* --- NEW Idle Animations --- */
+        @keyframes textPulseGlow { /* Subtle glow pulse for active text */
+            0%, 100% { text-shadow: 0 0 8px rgba(230, 230, 255, 0.1); }
+            50% { text-shadow: 0 0 14px rgba(230, 230, 255, var(--idle-text-pulse-opacity)); }
+        }
+        @keyframes quantumJitter { /* Subtle position jitter for active text */
+             0%, 100% { transform: translate(calc(var(--idle-jitter-strength) * 0.4), calc(var(--idle-jitter-strength) * -0.8)); }
+             25% { transform: translate(calc(var(--idle-jitter-strength) * -1.2), calc(var(--idle-jitter-strength) * 0.4)); }
+             50% { transform: translate(calc(var(--idle-jitter-strength) * 0.8), calc(var(--idle-jitter-strength) * 1.2)); }
+             75% { transform: translate(calc(var(--idle-jitter-strength) * -0.4), calc(var(--idle-jitter-strength) * -0.4)); }
+        }
+        @keyframes drift { /* For floating orbs */
+             from { transform: translate(var(--tx1), var(--ty1)) rotate(0deg) scale(var(--s1)); }
+             to   { transform: translate(var(--tx2), var(--ty2)) rotate(360deg) scale(var(--s2)); }
+        }
+
+        /* Apply idle animations conditionally based on motion preference */
+        @media (prefers-reduced-motion: no-preference) {
+            .section.active:not(.glitching):not(.ghosting):not(.settling) h1, /* Apply only when idle */
+            .section.active:not(.glitching):not(.ghosting):not(.settling) p {
+                 animation: textPulseGlow 6s infinite ease-in-out, quantumJitter 9s infinite linear alternate;
+             }
+             .section:not(.glitching):not(.ghosting):not(.settling) h1:hover { /* Subtle hover on non-transitioning text */
+                 filter: brightness(1.1);
+                 text-shadow: 0 0 12px rgba(230, 230, 255, 0.2);
+             }
+             .floating-orb {
+                 animation: drift 25s infinite ease-in-out alternate;
+             }
+             body::before { /* Only animate glow shift if no motion preference */
+                animation: glowShift 25s infinite ease-in-out alternate;
+             }
+             @keyframes glowShift { /* Slowly shift the radial gradient center slightly */
+                from { --mouse-x: 45%; --mouse-y: 48%; }
+                to   { --mouse-x: 55%; --mouse-y: 52%; }
+             }
+        }
+
+        /* --- Floating Orbs --- */
+        .floating-orb {
+             position: fixed; /* Fixed position relative to viewport */
+             width: var(--orb-size); height: var(--orb-size);
+             background-color: var(--orb-color);
+             border-radius: 50%;
+             filter: blur(calc(var(--orb-size) / 4));
+             z-index: 0; /* Above background, below main content */
+             pointer-events: none;
+             opacity: 0.6;
+             will-change: transform; /* Hint for animation */
+         }
+         /* Define random start/end positions and scales for orbs */
+         #orb1 { top: 15%; left: 10%; --tx1: 0vw; --ty1: 0vh; --tx2: 5vw; --ty2: -8vh; --s1: 0.9; --s2: 1.1; animation-duration: 32s; }
+         #orb2 { bottom: 10%; right: 12%; --tx1: 0vw; --ty1: 0vh; --tx2: -6vw; --ty2: 4vh; --s1: 1.2; --s2: 0.8; animation-duration: 28s; animation-delay: -5s; }
+          /* Add more orbs as desired */
 
     </style>
 </head>
 <body>
+    <!-- Background Canvas for Idle Effects -->
+    <canvas id="backgroundCanvas"></canvas>
+
     <!-- Overlays for Decoherence -->
     <div id="glitch-overlay"></div>
     <div id="color-burst-overlay"></div>
     <div id="data-stream-overlay"></div>
     <div id="grid-overlay"></div>
+    <div id="block-flash-overlay"></div> <!-- New Overlay -->
 
     <main> <!-- Main wrapper -->
+         <!-- Floating Orbs -->
+         <div class="floating-orb" id="orb1"></div>
+         <div class="floating-orb" id="orb2"></div>
+
         <!-- Sections Group 0: System -->
         <div id="section-system-1" class="section active">
             <h1>System State Alpha</h1>
@@ -349,15 +415,19 @@
 
     </main>
 
+    <!-- Transition Canvas (used by System, Entangled, Spin) -->
     <canvas id="transitionCanvas"></canvas>
 
     <script>
         // --- Global State ---
         const allSections = document.querySelectorAll('.section');
-        const canvas = document.getElementById('transitionCanvas');
-        const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true }); // Use hints
+        const transitionCanvas = document.getElementById('transitionCanvas');
+        const transitionCtx = transitionCanvas.getContext('2d', { alpha: true, desynchronized: true });
+        const backgroundCanvas = document.getElementById('backgroundCanvas'); // New BG Canvas
+        const bgCtx = backgroundCanvas.getContext('2d', { alpha: true, desynchronized: true }); // New BG Context
         const body = document.body;
         const mainElement = document.querySelector('main');
+        const blockFlashOverlay = document.getElementById('block-flash-overlay');
 
         const effectTypes = ['system', 'entangled', 'spin', 'decoherence'];
         const sectionsPerEffect = [
@@ -369,27 +439,41 @@
         const totalEffects = effectTypes.length;
         let currentEffectIndex = 0;
         let currentSectionIndexInEffect = 0;
-        let isAnimating = false;
-        let animationFrameId = null;
+        let isAnimating = false; // Tracks if a *transition* is animating
+        let transitionAnimationFrameId = null;
+        let idleAnimationFrameId = null; // Separate ID for idle animation loop
         let transitionStartTime = 0;
 
         const textPixelDataCache = new Map();
-        let lastCanvasWidth = 0; // Track for resize optimization
+        let lastCanvasWidth = 0;
         let lastCanvasHeight = 0;
         let currentFrameCSSVars = {}; // Cache CSS vars per transition frame
+
+        // Motion Preference Check
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // Smoother noise function
         const noise = { seed: Math.random(), detail: (x, y) => (Math.sin(x * 0.08 + noise.seed * 1.15) + Math.cos(y * 0.08 + noise.seed * 1.25)) * 0.5 + 0.5 };
 
+        // --- Idle Animation State ---
+        let bgParticles = [];
+        const NUM_BG_PARTICLES = prefersReducedMotion ? 20 : 80;
+        const BG_PARTICLE_SPEED = 0.2;
+        const BG_PARTICLE_SIZE = 1.5;
+        let cursorTrailParticles = [];
+        const CURSOR_TRAIL_LENGTH = prefersReducedMotion ? 0 : 15;
+        const CURSOR_TRAIL_FADEOUT = 0.06;
+        let mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let lastMouseUpdate = 0;
+        const MOUSE_UPDATE_THROTTLE = 16; // ~60fps throttle
+
         // --- Helpers ---
         function lerp(a, b, t) { return a + (b - a) * t; }
         function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-        function easeInOutQuad(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; } // Added Quad easing
+        function easeInOutQuad(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
         function parseHexColor(hex) { hex = hex.slice(1); if (hex.length === 3) hex = hex.split('').map(c => c + c).join(''); return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)]; };
         function lerpColorRGB(hex1, hex2, t) { const [r1, g1, b1] = parseHexColor(hex1); const [r2, g2, b2] = parseHexColor(hex2); const r = Math.round(lerp(r1, r2, t)); const g = Math.round(lerp(g1, g2, t)); const b = Math.round(lerp(b1, b2, t)); return `rgb(${r},${g},${b})`; }
-        // Hex to HSL (for Entangled effect color manipulation)
         function hexToHsl(hex) { hex = hex.slice(1); if (hex.length === 3) hex = hex.split('').map(c => c + c).join(''); let r = parseInt(hex.slice(0, 2), 16) / 255; let g = parseInt(hex.slice(2, 4), 16) / 255; let b = parseInt(hex.slice(4, 6), 16) / 255; let max = Math.max(r, g, b), min = Math.min(r, g, b); let h, s, l = (max + min) / 2; if (max == min) { h = s = 0; } else { let d = max - min; s = l > 0.5 ? d / (2 - max - min) : d / (max + min); switch (max) { case r: h = (g - b) / d + (g < b ? 6 : 0); break; case g: h = (b - r) / d + 2; break; case b: h = (r - g) / d + 4; break; } h /= 6; } return { h: h * 360, s: s, l: l }; }
-        // HSL to RGBA String (Added alpha support)
         function hslToRgbString(h, s, l, a = 1) { let r, g, b; if (s == 0) { r = g = b = l; } else { const hue2rgb = (p, q, t) => { if (t < 0) t += 1; if (t > 1) t -= 1; if (t < 1 / 6) return p + (q - p) * 6 * t; if (t < 1 / 2) return q; if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6; return p; }; let q = l < 0.5 ? l * (1 + s) : l + s - l * s; let p = 2 * l - q; h /= 360; r = hue2rgb(p, q, h + 1 / 3); g = hue2rgb(p, q, h); b = hue2rgb(p, q, h - 1 / 3); } return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`; }
 
         // --- Cache CSS ---
@@ -398,7 +482,6 @@
             const cached = {};
             varNames.forEach(name => {
                 const value = styles.getPropertyValue(name).trim();
-                // Parse value only if it looks like a number/dimension
                 const floatVal = parseFloat(value);
                 cached[name] = !isNaN(floatVal) && value.match(/^[+-]?\d+(\.\d+)?(px|ms|deg|%|em|rem|vw|vh)?$/i) ? floatVal : value;
             });
@@ -408,8 +491,7 @@
         // --- Text Pixel Data (Optimized Cache Check) ---
         function getTextPixelData(sectionElement, particleBaseLength, particleBaseThickness, particleDensity = 0.7, maxParticles = 8000) {
              const sectionId = sectionElement.id;
-             // Use cached data if available AND canvas dimensions haven't changed significantly
-             if (textPixelDataCache.has(sectionId) && canvas.width === lastCanvasWidth && canvas.height === lastCanvasHeight) {
+             if (textPixelDataCache.has(sectionId) && transitionCanvas.width === lastCanvasWidth && transitionCanvas.height === lastCanvasHeight) {
                  return textPixelDataCache.get(sectionId);
              }
 
@@ -420,486 +502,360 @@
              if (!h1 || !p || !dataEl) { console.warn("Missing elements in section:", sectionId); return []; }
              const data = dataEl.dataset;
 
-             // Use measuring class to avoid triggering reflows elsewhere
-             sectionElement.classList.add('measuring');
-             sectionElement.offsetHeight; // Force reflow to get correct dimensions
+             sectionElement.classList.add('measuring'); sectionElement.offsetHeight;
 
-             const h1Style = getComputedStyle(h1);
-             const pStyle = getComputedStyle(p);
-             const h1Rect = h1.getBoundingClientRect(); // Get dimensions AFTER reflow
-             const pRect = p.getBoundingClientRect();
+             const h1Style = getComputedStyle(h1); const pStyle = getComputedStyle(p);
+             const h1Rect = h1.getBoundingClientRect(); const pRect = p.getBoundingClientRect();
 
              sectionElement.classList.remove('measuring');
 
-             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear temporary canvas
+             // Use the *transition* canvas context for sampling
+             transitionCtx.clearRect(0, 0, transitionCanvas.width, transitionCanvas.height);
 
-             // Draw H1
-             ctx.font = h1Style.font;
-             ctx.fillStyle = data.color1 || '#ffffff';
-             ctx.textAlign = 'center';
-             ctx.textBaseline = 'middle';
-             const h1Lines = wrapText(ctx, h1.textContent || '', h1Rect.left + h1Rect.width / 2, h1Rect.width, parseFloat(h1Style.fontSize) * 1.2);
+             transitionCtx.font = h1Style.font; transitionCtx.fillStyle = data.color1 || '#ffffff';
+             transitionCtx.textAlign = 'center'; transitionCtx.textBaseline = 'middle';
+             const h1Lines = wrapText(transitionCtx, h1.textContent || '', h1Rect.left + h1Rect.width / 2, h1Rect.width, parseFloat(h1Style.fontSize) * 1.2);
              let currentH1Y = h1Rect.top + h1Rect.height / 2 - (h1Lines.length - 1) * parseFloat(h1Style.fontSize) * 0.6;
-             h1Lines.forEach(line => {
-                 ctx.fillText(line.text, line.x, currentH1Y);
-                 currentH1Y += line.lineHeight;
-             });
+             h1Lines.forEach(line => { transitionCtx.fillText(line.text, line.x, currentH1Y); currentH1Y += line.lineHeight; });
 
-             // Draw P (multi-line)
-             ctx.font = pStyle.font;
-             ctx.fillStyle = data.color2 || '#cccccc';
-             ctx.textAlign = 'center';
-             ctx.textBaseline = 'top';
-             const pLines = wrapText(ctx, p.textContent || '', pRect.left + pRect.width / 2, pRect.width, parseFloat(pStyle.lineHeight) || (parseFloat(pStyle.fontSize) * 1.5));
+             transitionCtx.font = pStyle.font; transitionCtx.fillStyle = data.color2 || '#cccccc';
+             transitionCtx.textAlign = 'center'; transitionCtx.textBaseline = 'top';
+             const pLines = wrapText(transitionCtx, p.textContent || '', pRect.left + pRect.width / 2, pRect.width, parseFloat(pStyle.lineHeight) || (parseFloat(pStyle.fontSize) * 1.5));
              let currentPY = pRect.top;
-             pLines.forEach(line => {
-                 ctx.fillText(line.text, line.x, currentPY);
-                 currentPY += line.lineHeight;
-             });
+             pLines.forEach(line => { transitionCtx.fillText(line.text, line.x, currentPY); currentPY += line.lineHeight; });
 
-             // Sample pixels (Optimized Step Calculation)
-              try {
-                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+             try {
+                 const imageData = transitionCtx.getImageData(0, 0, transitionCanvas.width, transitionCanvas.height);
                  const imgData = imageData.data;
-                 // Adjust step based on density and particle size for better coverage/performance balance
                  const step = Math.max(2, Math.floor(Math.sqrt(particleBaseLength * particleBaseThickness) / (particleDensity * 0.75) ));
 
-                 for (let y = 0; y < canvas.height; y += step) {
-                     for (let x = 0; x < canvas.width; x += step) {
-                         const index = (y * canvas.width + x) * 4;
+                 for (let y = 0; y < transitionCanvas.height; y += step) {
+                     for (let x = 0; x < transitionCanvas.width; x += step) {
+                         const index = (y * transitionCanvas.width + x) * 4;
                          const alpha = imgData[index + 3];
-                         if (alpha > 80 && pixelData.length < maxParticles) { // Slightly lower alpha threshold
-                             const r = imgData[index];
-                             const g = imgData[index + 1];
-                             const b = imgData[index + 2];
+                         if (alpha > 80 && pixelData.length < maxParticles) {
+                             const r = imgData[index]; const g = imgData[index + 1]; const b = imgData[index + 2];
                              const color = `rgb(${r},${g},${b})`;
                              pixelData.push({ x, y, color });
                          }
                      }
                  }
-              } catch (e) {
-                  console.error("Error getting ImageData:", e);
-                  // Potentially handle cross-origin issues if SVG noise was external
-              }
+              } catch (e) { console.error("Error getting ImageData:", e); }
 
-             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas after sampling
-             textPixelDataCache.set(sectionId, pixelData); // Store in cache
-             // Update last dimensions *after* successful generation
-             lastCanvasWidth = canvas.width;
-             lastCanvasHeight = canvas.height;
+             transitionCtx.clearRect(0, 0, transitionCanvas.width, transitionCanvas.height); // Clear canvas after sampling
+             textPixelDataCache.set(sectionId, pixelData);
+             lastCanvasWidth = transitionCanvas.width; lastCanvasHeight = transitionCanvas.height;
              return pixelData;
          }
 
         // Helper for simple text wrapping
         function wrapText(context, text, x, maxWidth, lineHeight) {
-            const words = text.split(' ');
-            let line = '';
-            const lines = [];
+            const words = text.split(' '); let line = ''; const lines = [];
             for(let n = 0; n < words.length; n++) {
-                const testLine = line + words[n] + ' ';
-                const metrics = context.measureText(testLine);
-                const testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0) {
-                    lines.push({ text: line.trim(), x: x, lineHeight: lineHeight });
-                    line = words[n] + ' ';
-                } else {
-                    line = testLine;
-                }
+                const testLine = line + words[n] + ' '; const metrics = context.measureText(testLine); const testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) { lines.push({ text: line.trim(), x: x, lineHeight: lineHeight }); line = words[n] + ' '; }
+                else { line = testLine; }
             }
-            lines.push({ text: line.trim(), x: x, lineHeight: lineHeight });
-            return lines;
+            lines.push({ text: line.trim(), x: x, lineHeight: lineHeight }); return lines;
         }
 
-        // --- EFFECT 0: System Transition (Enhanced & Optimized) ---
+        // --- Secondary Burst Effect (Defined but not used by Spin) ---
+        let secondaryBursts = []; // Stores { x, y, radius, alpha, color }
+        const BURST_MAX_RADIUS = 25;
+        const BURST_FADE_SPEED = 0.08;
+
+        function createBurst(x, y, color) {
+            secondaryBursts.push({ x, y, radius: 0, alpha: 0.6, color });
+        }
+
+        function drawBursts(ctx) {
+            for (let i = secondaryBursts.length - 1; i >= 0; i--) {
+                const burst = secondaryBursts[i];
+                burst.radius += 1.5; // Expand speed
+                burst.alpha -= BURST_FADE_SPEED;
+
+                if (burst.alpha <= 0) {
+                    secondaryBursts.splice(i, 1);
+                    continue;
+                }
+
+                ctx.beginPath();
+                ctx.arc(burst.x, burst.y, burst.radius, 0, Math.PI * 2);
+                ctx.fillStyle = burst.color.replace('rgb', 'rgba').replace(')', `, ${burst.alpha.toFixed(2)})`);
+                ctx.fill();
+            }
+        }
+
+
+        // --- EFFECT 0: System Transition ---
         let systemParticles = [];
-        const systemTransitionDuration = 800; // Keep duration reasonable
-        const systemParticleDensity = 0.004; // Density of particles
-        const systemMaxOffset = 80; // Max horizontal shift
+        const systemTransitionDuration = 800;
+        const systemParticleDensity = 0.004;
+        const systemMaxOffset = 80;
 
         function setupSystemEffect(fromSection, toSection) {
             document.documentElement.style.setProperty('--transition-duration', `${systemTransitionDuration}ms`);
-            resizeCanvas(); // Ensure canvas is sized correctly
-            canvas.style.backgroundColor = '#000'; // Needs black bg for this effect
-            canvas.style.mixBlendMode = 'normal'; // Reset blend mode if needed
-            canvas.style.display = 'block';
-            updatePageGlow(toSection); // Start transitioning page glow
+            resizeTransitionCanvas(); // Use specific resize function
+            transitionCanvas.style.backgroundColor = '#000';
+            transitionCanvas.style.mixBlendMode = 'normal';
+            transitionCanvas.style.display = 'block';
+            updatePageGlow(toSection);
 
             const outgoingColorElement = fromSection.querySelector('.system-colors') || fromSection.querySelector('.section-data');
             const outgoingColors = outgoingColorElement ? outgoingColorElement.dataset : { color1: '#ffffff', color2: '#808080' };
             const incomingColorElement = toSection.querySelector('.system-colors') || toSection.querySelector('.section-data');
             const incomingColors = incomingColorElement ? incomingColorElement.dataset : { color1: '#ffffff', color2: '#808080' };
 
-            // Determine scroll direction (affects particle movement)
             const currentIndex = Array.from(allSections).indexOf(fromSection);
             const nextIndex = Array.from(allSections).indexOf(toSection);
-            window.systemIsScrollingDown = nextIndex > currentIndex || (nextIndex === 0 && currentIndex === allSections.length - 1); // Handle wrap around
+            window.systemIsScrollingDown = nextIndex > currentIndex || (nextIndex === 0 && currentIndex === allSections.length - 1);
 
             systemParticles = [];
-            const numParticles = Math.floor(canvas.width * canvas.height * systemParticleDensity);
+            const numParticles = Math.floor(transitionCanvas.width * transitionCanvas.height * systemParticleDensity);
              for (let i = 0; i < numParticles; i++) {
-                 // Distribute particles more evenly, less random clumping
-                 const baseX = (i / numParticles) * canvas.width + Math.random() * 8 - 4;
-                 const baseY = Math.random() * canvas.height;
-                 const noiseVal = noise.detail(baseX * 0.5, baseY * 0.5); // Use smoother noise
-                 systemParticles.push({
-                    baseX, baseY, noiseVal,
-                    outgoingColors: { color1: outgoingColors.color1 || '#ffffff', color2: outgoingColors.color2 || '#808080' },
-                    incomingColors: { color1: incomingColors.color1 || '#ffffff', color2: incomingColors.color2 || '#808080' }
-                });
+                 const baseX = (i / numParticles) * transitionCanvas.width + Math.random() * 8 - 4;
+                 const baseY = Math.random() * transitionCanvas.height;
+                 const noiseVal = noise.detail(baseX * 0.5, baseY * 0.5);
+                 systemParticles.push({ baseX, baseY, noiseVal, outgoingColors, incomingColors });
              }
 
             transitionStartTime = 0;
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            animationFrameId = requestAnimationFrame(animateSystem);
+            if (transitionAnimationFrameId) cancelAnimationFrame(transitionAnimationFrameId);
+            transitionAnimationFrameId = requestAnimationFrame(animateSystem);
         }
 
         function animateSystem(timestamp) {
             if (!transitionStartTime) transitionStartTime = timestamp;
             const elapsed = timestamp - transitionStartTime;
             let progress = Math.min(elapsed / systemTransitionDuration, 1);
-            progress = easeInOutQuad(progress); // Use Quad easing for a potentially smoother feel
+            progress = easeInOutQuad(progress);
 
-            // OPTIMIZATION: Clear only once per frame
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            transitionCtx.fillStyle = '#000';
+            transitionCtx.fillRect(0, 0, transitionCanvas.width, transitionCanvas.height);
 
             const scrollDir = window.systemIsScrollingDown ? 1 : -1;
             const invProgress = 1 - progress;
 
-            // OPTIMIZATION: Use a standard for loop for potentially better performance in hot loops
             for (let i = 0; i < systemParticles.length; i++) {
                 const p = systemParticles[i];
-                let shouldDraw = false;
-                let drawX = p.baseX;
-                let drawSize = 0;
-                let drawColor = null;
+                let shouldDraw = false; let drawX = p.baseX; let drawSize = 0; let drawColor = null;
 
-                // Calculate outgoing particle state
-                if (p.noiseVal < invProgress * 0.85) { // Adjusted threshold
+                if (p.noiseVal < invProgress * 0.85) {
                      drawColor = Math.random() > 0.5 ? p.outgoingColors.color1 : p.outgoingColors.color2;
-                     drawX += -scrollDir * systemMaxOffset * progress * (p.noiseVal * 2 - 1); // Offset based on total progress
-                     drawSize = (1 + p.noiseVal) * invProgress * 1.8; // Size based on inverse progress
+                     drawX += -scrollDir * systemMaxOffset * progress * (p.noiseVal * 2 - 1);
+                     drawSize = (1 + p.noiseVal) * invProgress * 1.8;
                      shouldDraw = true;
                 }
-
-                 // Calculate incoming particle state (can overwrite outgoing if both are visible)
                  if (p.noiseVal < progress * 0.85) {
                      drawColor = Math.random() > 0.5 ? p.incomingColors.color1 : p.incomingColors.color2;
-                     const incomingOffsetX = scrollDir * systemMaxOffset * invProgress * (p.noiseVal * 2 - 1); // Offset based on inverse progress
-                     drawX = p.baseX + incomingOffsetX; // Always calculate incoming from base + offset
-                     drawSize = (1 + p.noiseVal) * progress * 1.8; // Size based on progress
+                     const incomingOffsetX = scrollDir * systemMaxOffset * invProgress * (p.noiseVal * 2 - 1);
+                     drawX = p.baseX + incomingOffsetX;
+                     drawSize = (1 + p.noiseVal) * progress * 1.8;
                      shouldDraw = true;
                  }
-
-                 // Draw if visible and large enough
                  if (shouldDraw && drawSize > 0.5 && drawColor) {
-                     ctx.fillStyle = drawColor; // Set fill style only if drawing
-                     ctx.fillRect(drawX, p.baseY, drawSize, drawSize);
+                     transitionCtx.fillStyle = drawColor;
+                     transitionCtx.fillRect(drawX, p.baseY, drawSize, drawSize);
                  }
             }
 
             if (progress < 1) {
-                animationFrameId = requestAnimationFrame(animateSystem);
+                transitionAnimationFrameId = requestAnimationFrame(animateSystem);
             } else {
                 completeTransition();
             }
         }
 
 
-        // --- EFFECT 1: Entangled Transition (Enhanced Visuals & Perf) ---
+        // --- EFFECT 1: Entangled Transition ---
         let entangledParticles = [];
-        const entangledTransitionDuration = 1800; // Keep duration
+        const entangledTransitionDuration = 1800;
         const entangledParticleDensity = 0.7;
         const entangledMaxParticles = 7000;
 
-        // Define CSS Variables specific to this effect for caching
         const entangledCSSVarNames = [
             '--depth-max-scale', '--depth-min-scale', '--particle-base-length', '--particle-base-thickness',
             '--curve-intensity', '--snap-threshold', '--snap-power', '--glitch-probability',
             '--glitch-displacement', '--hue-shift-intensity', '--saturation-pulse', '--vibration-max-strength',
             '--velocity-rotation-factor', '--rotation-speed-factor', '--glitch-color', '--streak-opacity',
-            '--particle-glow-blur', '--particle-glow-opacity', '--grid-color', '--grid-spacing', '--grid-warp-intensity'
+            '--particle-glow-blur', '--particle-glow-opacity', '--grid-color', '--grid-spacing', '--grid-warp-intensity',
+             '--secondary-burst-probability' // Still used by Entangled
         ];
 
         class EntangledParticle {
              constructor(x, y, color, cssVars) {
-                 this.initialX = x; this.initialY = y; this.initialColor = hexToHsl(color); // Store HSL
+                 this.initialX = x; this.initialY = y; this.initialColor = hexToHsl(color);
                  this.currentX = x; this.currentY = y; this.currentColor = this.initialColor;
                  this.targetX = x; this.targetY = y; this.targetColor = this.initialColor;
-                 this.vx = 0; this.vy = 0;
-                 this.travelDistance = 0;
-                 this.rotation = Math.random() * Math.PI * 2;
-                 this.rotationSpeed = 0; this.isPaired = false;
-                 this.hueShiftDirection = 1;
-                 this.prevX = x; this.prevY = y; // For streaks
-                 this.controlX = x; this.controlY = y; // For bezier curve
-                 this.currentSpeed = 0;
-                 // Pre-calculate depth-based properties
+                 this.vx = 0; this.vy = 0; this.travelDistance = 0; this.rotation = Math.random() * Math.PI * 2;
+                 this.rotationSpeed = 0; this.isPaired = false; this.hueShiftDirection = 1;
+                 this.prevX = x; this.prevY = y; this.controlX = x; this.controlY = y; this.currentSpeed = 0;
                  this.depthFactor = Math.random() * (cssVars['--depth-max-scale'] - cssVars['--depth-min-scale']) + cssVars['--depth-min-scale'];
                  this.length = cssVars['--particle-base-length'] * this.depthFactor;
                  this.thickness = cssVars['--particle-base-thickness'] * this.depthFactor;
-                 this.isGlitching = false;
-                 this.glitchFrames = 0;
-                 this.baseGlowOpacity = cssVars['--particle-glow-opacity']; // Store base glow
-                 this.radius = this.thickness / 3; // Precalc radius for rounded rect
+                 this.isGlitching = false; this.glitchFrames = 0;
+                 this.baseGlowOpacity = cssVars['--particle-glow-opacity'];
+                 this.radius = this.thickness / 3;
             }
-
-             assignTarget(targetX, targetY, targetColorHex, cssVars) {
+            assignTarget(targetX, targetY, targetColorHex, cssVars) {
                  this.targetX = targetX; this.targetY = targetY; this.targetColor = hexToHsl(targetColorHex);
                  const dx = this.initialX - this.targetX; const dy = this.initialY - this.targetY; this.travelDistance = Math.sqrt(dx * dx + dy * dy);
-                 // Calculate control point for bezier curve
                  const midX = (this.initialX + this.targetX) / 2; const midY = (this.initialY + this.targetY) / 2; const angle = Math.atan2(dy, dx); const perpAngle = angle + Math.PI / 2;
                  const curveIntensity = cssVars['--curve-intensity'];
                  const offset = this.travelDistance * curveIntensity * (Math.random() > 0.5 ? 1 : -1);
                  this.controlX = midX + Math.cos(perpAngle) * offset; this.controlY = midY + Math.sin(perpAngle) * offset;
-             }
-
-             setPairProperties(speed, hueDir) { if (!this.isPaired) { this.rotationSpeed = speed * this.depthFactor; this.hueShiftDirection = hueDir; this.isPaired = true; } }
-
-             update(progress, cssVars) {
+            }
+            setPairProperties(speed, hueDir) { if (!this.isPaired) { this.rotationSpeed = speed * this.depthFactor; this.hueShiftDirection = hueDir; this.isPaired = true; } }
+            update(progress, cssVars) { // Includes burst trigger for Entangled
                  this.prevX = this.currentX; this.prevY = this.currentY;
-                 const t = easeInOutCubic(progress); // Eased progress
-
-                 // Destructure cached CSS vars for slightly easier access (might be minor perf hit, but improves readability)
-                 const {
-                     '--snap-threshold': snapThreshold, '--snap-power': snapPower, '--glitch-probability': glitchProbability,
-                     '--glitch-displacement': glitchDisplacement, '--hue-shift-intensity': hueShiftIntensity,
-                     '--saturation-pulse': saturationPulse, '--vibration-max-strength': vibrationMaxStrength,
-                     '--velocity-rotation-factor': velocityRotationFactor
-                 } = cssVars;
-
-                 // Snap factor decreases towards the end of the transition
+                 const t = easeInOutCubic(progress);
+                 const { '--snap-threshold': snapThreshold, '--snap-power': snapPower, '--glitch-probability': glitchProbability, '--glitch-displacement': glitchDisplacement, '--hue-shift-intensity': hueShiftIntensity, '--saturation-pulse': saturationPulse, '--vibration-max-strength': vibrationMaxStrength, '--velocity-rotation-factor': velocityRotationFactor, '--secondary-burst-probability': burstProb } = cssVars;
                  const snapFactor = progress > snapThreshold ? Math.max(0, 1 - Math.pow((progress - snapThreshold) / (1 - snapThreshold), snapPower)) : 1.0;
 
-                 // Glitch Logic
                  this.isGlitching = false;
                  if (this.glitchFrames > 0) { this.isGlitching = true; this.glitchFrames--; }
                  else if (snapFactor > 0.1 && Math.random() < glitchProbability) { this.isGlitching = true; this.glitchFrames = Math.floor(Math.random() * 3) + 1; }
 
-                 // HSL Color Interpolation with Pulse
                  const midTransitionFactor = Math.sin(Math.PI * progress);
                  let currentHue = lerp(this.initialColor.h, this.targetColor.h, t);
-                 const hueShiftMagnitude = midTransitionFactor * hueShiftIntensity * Math.sin(progress * Math.PI * 2.5) * snapFactor; // Faster hue pulse near middle
-                 currentHue = (currentHue + hueShiftMagnitude * this.hueShiftDirection + 360) % 360; // Wrap hue
+                 const hueShiftMagnitude = midTransitionFactor * hueShiftIntensity * Math.sin(progress * Math.PI * 2.5) * snapFactor;
+                 currentHue = (currentHue + hueShiftMagnitude * this.hueShiftDirection + 360) % 360;
                  let currentSat = lerp(this.initialColor.s, this.targetColor.s, t);
-                 currentSat = Math.min(1, currentSat + midTransitionFactor * saturationPulse * snapFactor); // Pulse saturation
+                 currentSat = Math.min(1, currentSat + midTransitionFactor * saturationPulse * snapFactor);
                  const currentLight = lerp(this.initialColor.l, this.targetColor.l, t);
                  this.currentColor = { h: currentHue, s: currentSat, l: currentLight };
 
-                 // Curved Position (Bezier)
                  const oneMinusT = 1 - t;
                  const baseX = oneMinusT * oneMinusT * this.initialX + 2 * oneMinusT * t * this.controlX + t * t * this.targetX;
                  const baseY = oneMinusT * oneMinusT * this.initialY + 2 * oneMinusT * t * this.controlY + t * t * this.targetY;
 
-                 // Vibration / Displacement (affected by snap factor)
                  const maxVibration = vibrationMaxStrength * midTransitionFactor * this.depthFactor * snapFactor;
-                 const randX = (Math.random() - 0.5) * maxVibration * 0.2;
-                 const randY = (Math.random() - 0.5) * maxVibration * 0.2;
+                 const randX = (Math.random() - 0.5) * maxVibration * 0.2; const randY = (Math.random() - 0.5) * maxVibration * 0.2;
                  this.vx += randX; this.vy += randY;
-                 const damping = lerp(0.94, 0.88, t); // Damping increases as transition progresses
-                 this.vx *= damping; this.vy *= damping;
-                 this.currentX = baseX + this.vx * snapFactor; // Apply vibration scaled by snap factor
-                 this.currentY = baseY + this.vy * snapFactor;
+                 const damping = lerp(0.94, 0.88, t); this.vx *= damping; this.vy *= damping;
+                 this.currentX = baseX + this.vx * snapFactor; this.currentY = baseY + this.vy * snapFactor;
 
-                 // Apply Glitch Displacement
-                 if (this.isGlitching) {
-                     this.currentX += (Math.random() - 0.5) * glitchDisplacement;
-                     this.currentY += (Math.random() - 0.5) * glitchDisplacement;
-                 }
+                 if (this.isGlitching) { this.currentX += (Math.random() - 0.5) * glitchDisplacement; this.currentY += (Math.random() - 0.5) * glitchDisplacement; }
 
-                 // Calculate Speed and add Velocity-Based Rotation
                  const movedX = this.currentX - this.prevX; const movedY = this.currentY - this.prevY;
                  this.currentSpeed = Math.sqrt(movedX * movedX + movedY * movedY);
                  const velocitySpin = this.currentSpeed * velocityRotationFactor * this.depthFactor * snapFactor;
-                 // Combine base rotation speed and velocity spin
                  this.rotation += this.rotationSpeed * (midTransitionFactor + 0.2) * snapFactor + velocitySpin;
+
+                 // Trigger secondary burst for Entangled
+                 if (Math.random() < burstProb && midTransitionFactor > 0.3 && !this.isGlitching) {
+                    createBurst(this.currentX, this.currentY, hslToRgbString(this.currentColor.h, this.currentColor.s, this.currentColor.l, 0.5));
+                 }
             }
-
             draw(ctx, progress, cssVars) {
-                 const midTransitionFactor = Math.sin(Math.PI * progress);
-                 const t = easeInOutCubic(progress); // Use eased progress for visual timing
-
-                 const {
-                     '--snap-threshold': snapThreshold, '--snap-power': snapPower, '--glitch-color': glitchColor,
-                     '--streak-opacity': streakOpacity, '--particle-glow-blur': particleGlowBlur
-                 } = cssVars;
-
-                 // Calculate visual snap factor (slightly softer than physics snap)
+                 const midTransitionFactor = Math.sin(Math.PI * progress); const t = easeInOutCubic(progress);
+                 const { '--snap-threshold': snapThreshold, '--snap-power': snapPower, '--glitch-color': glitchColor, '--streak-opacity': streakOpacity, '--particle-glow-blur': particleGlowBlur } = cssVars;
                  const visualSnapFactor = progress > snapThreshold ? Math.max(0, 1 - Math.pow((progress - snapThreshold) / (1 - snapThreshold), snapPower * 0.8)) : 1.0;
 
-                 let drawColorHsl = this.currentColor;
-                 let drawLength = this.length;
-                 let finalGlowOpacity = this.baseGlowOpacity * (0.5 + midTransitionFactor * 0.7) * visualSnapFactor; // Modulate base glow
-
-                 // Apply Glitch Visuals
-                 if (this.isGlitching) {
-                     drawColorHsl = { h: (drawColorHsl.h + 180) % 360, s: Math.random() * 0.5 + 0.5, l: drawColorHsl.l }; // Flip hue, random sat
-                     finalGlowOpacity = 0.9; // Brighter glow during glitch
-                     drawLength *= 1.5; // Make particle seem larger/distorted
-                 }
+                 let drawColorHsl = this.currentColor; let drawLength = this.length; let finalGlowOpacity = this.baseGlowOpacity * (0.5 + midTransitionFactor * 0.7) * visualSnapFactor;
+                 if (this.isGlitching) { drawColorHsl = { h: (drawColorHsl.h + 180) % 360, s: Math.random() * 0.5 + 0.5, l: drawColorHsl.l }; finalGlowOpacity = 0.9; drawLength *= 1.5; }
                  const drawColorStr = hslToRgbString(drawColorHsl.h, drawColorHsl.s, drawColorHsl.l);
 
-                 // Draw Streak (Softer, Fades Out)
-                 // Only draw if moving, not glitching, and past the initial phase
                  if (midTransitionFactor > 0.2 && this.currentSpeed > 0.5 && !this.isGlitching && Math.random() < 0.6) {
-                     const streakAlpha = Math.min(1, this.currentSpeed * 0.5) * streakOpacity * visualSnapFactor * (1 - t); // Fade out streak towards end
-                     if (streakAlpha > 0.03) { // Don't draw near-invisible streaks
-                         ctx.save();
-                         ctx.globalAlpha = streakAlpha;
-                         ctx.strokeStyle = drawColorStr;
-                         ctx.lineWidth = this.thickness * 0.7; // Thinner streak
-                         ctx.lineCap = 'round'; // Softer ends
-                         ctx.beginPath();
-                         ctx.moveTo(this.prevX, this.prevY);
-                         // Use quadratic curve for a smoother trail end compared to lineTo
-                         const trailEndX = lerp(this.prevX, this.currentX, 0.5);
-                         const trailEndY = lerp(this.prevY, this.currentY, 0.5);
+                     const streakAlpha = Math.min(1, this.currentSpeed * 0.5) * streakOpacity * visualSnapFactor * (1 - t);
+                     if (streakAlpha > 0.03) {
+                         ctx.save(); ctx.globalAlpha = streakAlpha; ctx.strokeStyle = drawColorStr; ctx.lineWidth = this.thickness * 0.7; ctx.lineCap = 'round';
+                         ctx.beginPath(); ctx.moveTo(this.prevX, this.prevY);
+                         const trailEndX = lerp(this.prevX, this.currentX, 0.5); const trailEndY = lerp(this.prevY, this.currentY, 0.5);
                          ctx.quadraticCurveTo(trailEndX, trailEndY, this.currentX, this.currentY);
-                         ctx.stroke();
-                         ctx.restore();
+                         ctx.stroke(); ctx.restore();
                      }
                  }
 
-                 // Draw Main Particle (Rounded Rectangle)
                  ctx.save();
-                 const glowIntensity = (midTransitionFactor * 0.6 + 0.4) * this.depthFactor * visualSnapFactor; // Consistent glow base
-                 const finalBlur = particleGlowBlur * glowIntensity * (this.isGlitching ? 1.3 : 1); // More blur during glitch
-
+                 const glowIntensity = (midTransitionFactor * 0.6 + 0.4) * this.depthFactor * visualSnapFactor;
+                 const finalBlur = particleGlowBlur * glowIntensity * (this.isGlitching ? 1.3 : 1);
                  if (finalBlur > 0.5) {
-                    // Generate slightly brighter/saturated glow color
                     const glowColor = hslToRgbString(drawColorHsl.h, Math.min(1, drawColorHsl.s * 1.2), Math.min(0.8, drawColorHsl.l * 1.1), finalGlowOpacity * glowIntensity);
-                    ctx.shadowColor = glowColor;
-                    ctx.shadowBlur = finalBlur;
-                 } else {
-                     ctx.shadowBlur = 0; // Turn off shadow if blur is negligible
-                 }
+                    ctx.shadowColor = glowColor; ctx.shadowBlur = finalBlur;
+                 } else { ctx.shadowBlur = 0; }
 
-                 ctx.translate(this.currentX, this.currentY);
-                 ctx.rotate(this.rotation);
-                 ctx.fillStyle = drawColorStr;
-
-                 // Draw Rounded Rectangle using arcTo (more visually appealing)
-                 const r = this.radius; // Use precalculated radius
-                 const halfLength = drawLength / 2;
-                 const halfThickness = this.thickness / 2;
-                 ctx.beginPath();
-                 ctx.moveTo(-halfLength + r, -halfThickness);
-                 ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r);
-                 ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
-                 ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r);
-                 ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
-                 ctx.closePath();
-                 ctx.fill();
-
-                 ctx.restore();
+                 ctx.translate(this.currentX, this.currentY); ctx.rotate(this.rotation); ctx.fillStyle = drawColorStr;
+                 const r = this.radius; const halfLength = drawLength / 2; const halfThickness = this.thickness / 2;
+                 ctx.beginPath(); ctx.moveTo(-halfLength + r, -halfThickness);
+                 ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r); ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
+                 ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r); ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
+                 ctx.closePath(); ctx.fill(); ctx.restore();
             }
         }
 
-        // Draw Dynamic Warping Grid for Entangled Effect
-        function drawEntangledGrid(progress, cssVars) {
+        function drawEntangledGrid(ctx, progress, cssVars) { // Now accepts context
               const midTransitionFactor = Math.sin(Math.PI * progress);
-              if (midTransitionFactor < 0.05) return; // Fade in/out grid
-
-              const gridColor = cssVars['--grid-color'];
-              let gridSpacing = cssVars['--grid-spacing'];
+              if (midTransitionFactor < 0.05) return;
+              const gridColor = cssVars['--grid-color']; let gridSpacing = cssVars['--grid-spacing'];
               const gridWarpIntensity = cssVars['--grid-warp-intensity'];
 
-              ctx.save();
-              ctx.lineWidth = 0.5; // Keep grid lines thin
-
-              // Dynamic Grid: Pulse spacing and warp intensity
-              const pulseFactor = 0.1 * Math.sin(progress * Math.PI * 4); // Faster pulse
-              gridSpacing *= (1 + pulseFactor);
-              const dynamicWarp = gridWarpIntensity * (0.8 + 0.4 * Math.sin(progress * Math.PI * 1.5)); // Vary warp intensity
-
-              // Set alpha via RGBA string for potentially better performance than globalAlpha
+              ctx.save(); ctx.lineWidth = 0.5;
+              const pulseFactor = 0.1 * Math.sin(progress * Math.PI * 4); gridSpacing *= (1 + pulseFactor);
+              const dynamicWarp = gridWarpIntensity * (0.8 + 0.4 * Math.sin(progress * Math.PI * 1.5));
               ctx.strokeStyle = gridColor.replace(/[\d\.]+\)$/g, `${(midTransitionFactor * 0.6 + 0.1).toFixed(3)})`);
 
-              const warpFrequency = 0.035 * Math.PI * 2; // How dense the waves are
-              const timeOffset = performance.now() * 0.0005; // Use performance.now for smooth time-based animation
+              const warpFrequency = 0.035 * Math.PI * 2; const timeOffset = performance.now() * 0.0005;
+              const step = gridSpacing > 35 ? 12 : 6;
 
               ctx.beginPath();
-              // Use a larger step for drawing lines to improve performance
-              const step = gridSpacing > 35 ? 12 : 6; // Adjust step based on spacing
-
-              // Vertical lines (warped)
-              for (let x = gridSpacing / 2; x < canvas.width + gridSpacing; x += gridSpacing) {
+              for (let x = gridSpacing / 2; x < transitionCanvas.width + gridSpacing; x += gridSpacing) {
                   ctx.moveTo(x + Math.sin(0 * warpFrequency + timeOffset + x*0.01) * dynamicWarp, -gridSpacing);
-                  for (let y = -gridSpacing + step; y < canvas.height + gridSpacing; y += step) {
-                      // Apply warp based on y position, time, and x offset
+                  for (let y = -gridSpacing + step; y < transitionCanvas.height + gridSpacing; y += step) {
                       ctx.lineTo(x + Math.sin(y * warpFrequency + timeOffset + x*0.01) * dynamicWarp, y);
                   }
               }
-              // Horizontal lines (warped)
-              for (let y = gridSpacing / 2; y < canvas.height + gridSpacing; y += gridSpacing) {
+              for (let y = gridSpacing / 2; y < transitionCanvas.height + gridSpacing; y += gridSpacing) {
                   ctx.moveTo(-gridSpacing, y + Math.cos(0 * warpFrequency + timeOffset + y*0.01) * dynamicWarp);
-                  for (let x = -gridSpacing + step; x < canvas.width + gridSpacing; x += step) {
-                      // Apply warp based on x position, time, and y offset
+                  for (let x = -gridSpacing + step; x < transitionCanvas.width + gridSpacing; x += step) {
                        ctx.lineTo(x, y + Math.cos(x * warpFrequency + timeOffset + y*0.01) * dynamicWarp);
                   }
               }
-              ctx.stroke();
-              ctx.restore();
+              ctx.stroke(); ctx.restore();
         }
 
         function setupEntangledEffect(fromSection, toSection) {
              document.documentElement.style.setProperty('--transition-duration', `${entangledTransitionDuration}ms`);
-             resizeCanvas();
-             canvas.style.backgroundColor = 'transparent'; // Use transparent bg
-             canvas.style.mixBlendMode = 'screen'; // Screen blend looks good for particles
-             canvas.style.display = 'block';
-             updatePageGlow(toSection); // Transition page glow
+             resizeTransitionCanvas();
+             transitionCanvas.style.backgroundColor = 'transparent';
+             transitionCanvas.style.mixBlendMode = 'screen';
+             transitionCanvas.style.display = 'block';
+             updatePageGlow(toSection);
 
-             // Cache CSS variables needed for this effect at the start
              const cssVars = cacheCSSVars(entangledCSSVarNames);
              const particleBaseLength = cssVars['--particle-base-length'];
              const particleBaseThickness = cssVars['--particle-base-thickness'];
              const rotationSpeedFactor = cssVars['--rotation-speed-factor'];
 
-             // Generate particle data (uses cache if possible)
              const outgoingPixelData = getTextPixelData(fromSection, particleBaseLength, particleBaseThickness, entangledParticleDensity, entangledMaxParticles);
              const incomingPixelData = getTextPixelData(toSection, particleBaseLength, particleBaseThickness, entangledParticleDensity, entangledMaxParticles);
 
              if (outgoingPixelData.length === 0) { console.warn("Entangled: Outgoing generation failed."); completeTransition(false); return; }
 
-             // Create particle instances
              entangledParticles = outgoingPixelData.map(p => new EntangledParticle(p.x, p.y, p.color, cssVars));
              const numParticles = entangledParticles.length;
              const hasIncomingData = incomingPixelData.length > 0;
 
-             // Assign targets and pair properties
              for (let i = 0; i < numParticles; i++) {
-                 const particle = entangledParticles[i];
-                 const pairIndex = numParticles - 1 - i; // Simple pairing scheme
+                 const particle = entangledParticles[i]; const pairIndex = numParticles - 1 - i;
                  const pairedParticle = (i !== pairIndex && pairIndex >= 0 && pairIndex < numParticles) ? entangledParticles[pairIndex] : null;
-
                  let targetData, targetColorHex;
-                 if (hasIncomingData) { // Use incoming data if available
-                     targetData = incomingPixelData[i % incomingPixelData.length]; // Loop through incoming data
-                     targetColorHex = targetData.color;
-                 } else { // Fallback if incoming data failed (e.g., section has no text)
-                     const fallbackColors = toSection.querySelector('.section-data').dataset;
-                     targetData = { x: particle.initialX, y: particle.initialY }; // Target is initial position
-                     targetColorHex = i % 2 === 0 ? (fallbackColors.color1 || '#ddff99') : (fallbackColors.color2 || '#bbdd77'); // Alternate fallback colors
-                 }
+                 if (hasIncomingData) { targetData = incomingPixelData[i % incomingPixelData.length]; targetColorHex = targetData.color; }
+                 else { const fallbackColors = toSection.querySelector('.section-data').dataset; targetData = { x: particle.initialX, y: particle.initialY }; targetColorHex = i % 2 === 0 ? (fallbackColors.color1 || '#ddff99') : (fallbackColors.color2 || '#bbdd77'); }
                  particle.assignTarget(targetData.x, targetData.y, targetColorHex, cssVars);
 
-                 // Assign mirrored properties to pairs (if not already assigned)
                  if (!particle.isPaired) {
-                      const speed = (Math.random() - 0.5) * rotationSpeedFactor * 2.0; // Base rotation speed
-                      const hueDir = Math.random() > 0.5 ? 1 : -1; // Hue shift direction
+                      const speed = (Math.random() - 0.5) * rotationSpeedFactor * 2.0; const hueDir = Math.random() > 0.5 ? 1 : -1;
                       particle.setPairProperties(speed, hueDir);
-                      if (pairedParticle && !pairedParticle.isPaired) {
-                          pairedParticle.setPairProperties(-speed, -hueDir); // Mirrored properties
-                      }
+                      if (pairedParticle && !pairedParticle.isPaired) { pairedParticle.setPairProperties(-speed, -hueDir); }
                   }
              }
              if (!hasIncomingData) { console.warn("Entangled: Incoming generation failed. Morphing color/position only."); }
 
-             transitionStartTime = 0;
-             if (animationFrameId) cancelAnimationFrame(animationFrameId);
-             currentFrameCSSVars = cssVars; // Store cached vars for the animation loop
-             animationFrameId = requestAnimationFrame(animateEntangled);
+             transitionStartTime = 0; secondaryBursts = []; // Clear bursts
+             if (transitionAnimationFrameId) cancelAnimationFrame(transitionAnimationFrameId);
+             currentFrameCSSVars = cssVars;
+             transitionAnimationFrameId = requestAnimationFrame(animateEntangled);
          }
 
         function animateEntangled(timestamp) {
@@ -907,266 +863,194 @@
              const elapsed = timestamp - transitionStartTime;
              let progress = Math.min(elapsed / entangledTransitionDuration, 1);
 
-             const cssVars = currentFrameCSSVars; // Use cached vars
+             const cssVars = currentFrameCSSVars;
 
-             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-             drawEntangledGrid(progress, cssVars); // Draw dynamic grid background
+             transitionCtx.clearRect(0, 0, transitionCanvas.width, transitionCanvas.height);
+             drawEntangledGrid(transitionCtx, progress, cssVars); // Pass context
 
-             // Update and draw each particle
              for (let i = 0; i < entangledParticles.length; i++) {
                  const p = entangledParticles[i];
                  p.update(progress, cssVars);
-                 p.draw(ctx, progress, cssVars);
+                 p.draw(transitionCtx, progress, cssVars); // Pass context
              }
+             drawBursts(transitionCtx); // Draw secondary bursts on top for Entangled
 
-             // Reset canvas state after drawing all particles
-             ctx.shadowBlur = 0;
-             ctx.shadowColor = 'transparent';
-             ctx.globalAlpha = 1.0;
+             transitionCtx.shadowBlur = 0; transitionCtx.shadowColor = 'transparent'; transitionCtx.globalAlpha = 1.0;
 
              if (progress < 1) {
-                 animationFrameId = requestAnimationFrame(animateEntangled);
+                 transitionAnimationFrameId = requestAnimationFrame(animateEntangled);
              } else {
-                 completeTransition(); // Finish the transition
+                 completeTransition();
              }
          }
 
 
-        // --- EFFECT 2: Spin Transition (Enhanced Visuals & Pulse) ---
+        // --- EFFECT 2: Spin Transition ---
         let spinParticles = [];
-        const spinTransitionDuration = 1700; // Slightly shorter than entangled
+        const spinTransitionDuration = 1700;
         const spinParticleDensity = 0.7;
         const spinMaxParticles = 7000;
-        let spinPulseActive = false; // Flag for the initial visual pulse
+        let spinPulseActive = false;
 
+        // CSS Vars used by Spin (Burst probability can be removed if desired)
         const spinCSSVarNames = [
              '--rotation-speed-factor', '--vibration-max-strength', '--particle-length',
              '--particle-thickness', '--ghost-opacity', '--particle-glow-blur', '--particle-glow-opacity',
-             '--spin-pulse-color' // Include pulse color
+             '--spin-pulse-color', '--secondary-burst-probability' // Kept here for now, but not used in update
         ];
 
         class SpinParticle {
-             constructor(x, y, color, cssVars) {
+            constructor(x, y, color, cssVars) {
                  this.initialX = x; this.initialY = y; this.initialColor = color; // Store RGB string
                  this.currentX = x; this.currentY = y; this.currentColor = color;
                  this.targetX = x; this.targetY = y; this.targetColor = color;
-                 this.vx = 0; this.vy = 0;
-                 this.travelDistance = 0;
-                 this.rotation = Math.random() * Math.PI * 2;
-                 this.rotationSpeed = (Math.random() - 0.5) * cssVars['--rotation-speed-factor'] * 1.2; // Base rotation
-                 this.prevX = x; this.prevY = y; // For ghosting
-                 // Store base dimensions for potential animation
+                 this.vx = 0; this.vy = 0; this.travelDistance = 0; this.rotation = Math.random() * Math.PI * 2;
+                 this.rotationSpeed = (Math.random() - 0.5) * cssVars['--rotation-speed-factor'] * 1.2;
+                 this.prevX = x; this.prevY = y;
                  this.baseLength = cssVars['--particle-length'];
                  this.baseThickness = cssVars['--particle-thickness'];
-                 this.radius = this.baseThickness / 3; // Precalc radius
-             }
-
-             assignTarget(targetX, targetY, targetColor) { this.targetX = targetX; this.targetY = targetY; this.targetColor = targetColor; const dx = this.initialX - this.targetX; const dy = this.initialY - this.targetY; this.travelDistance = Math.sqrt(dx * dx + dy * dy); }
-
-             update(progress, cssVars) {
+                 this.radius = this.baseThickness / 3;
+            }
+            assignTarget(targetX, targetY, targetColor) { this.targetX = targetX; this.targetY = targetY; this.targetColor = targetColor; const dx = this.initialX - this.targetX; const dy = this.initialY - this.targetY; this.travelDistance = Math.sqrt(dx * dx + dy * dy); }
+            update(progress, cssVars) { // Burst trigger REMOVED
                  this.prevX = this.currentX; this.prevY = this.currentY;
                  const t = easeInOutCubic(progress);
+                 const { '--vibration-max-strength': vibrationMaxStrength /*, '--secondary-burst-probability': burstProb */ } = cssVars; // Burst prob commented out
 
-                 const vibrationMaxStrength = cssVars['--vibration-max-strength'];
-
-                 // Interpolate color (RGB is fine here)
                  this.currentColor = lerpColorRGB(this.initialColor, this.targetColor, t);
-
-                 // Calculate base position using lerp
-                 const baseX = lerp(this.initialX, this.targetX, t);
-                 const baseY = lerp(this.initialY, this.targetY, t);
-
-                 // Calculate outward displacement (strongest mid-transition)
+                 const baseX = lerp(this.initialX, this.targetX, t); const baseY = lerp(this.initialY, this.targetY, t);
                  const midTransitionFactor = Math.sin(Math.PI * progress);
-                 const displaceAngle = Math.atan2(this.initialY - this.targetY, this.initialX - this.targetX) + Math.PI / 2; // Perpendicular to travel direction
-                 const maxDisplace = 60; // Maximum outward push
-                 const actualDisplace = maxDisplace * midTransitionFactor * Math.min(1, this.travelDistance / 250); // Scale displacement by distance traveled (up to a max)
-                 const displaceX = Math.cos(displaceAngle) * actualDisplace * (Math.random() * 0.5 + 0.75); // Add some randomness
+                 const displaceAngle = Math.atan2(this.initialY - this.targetY, this.initialX - this.targetX) + Math.PI / 2;
+                 const maxDisplace = 60;
+                 const actualDisplace = maxDisplace * midTransitionFactor * Math.min(1, this.travelDistance / 250);
+                 const displaceX = Math.cos(displaceAngle) * actualDisplace * (Math.random() * 0.5 + 0.75);
                  const displaceY = Math.sin(displaceAngle) * actualDisplace * (Math.random() * 0.5 + 0.75);
 
-                 // Vibration (similar to entangled but maybe slightly different params)
                  const vibrationStrength = vibrationMaxStrength * midTransitionFactor * 0.9;
-                 this.vx += (Math.random() - 0.5) * vibrationStrength * 0.18;
-                 this.vy += (Math.random() - 0.5) * vibrationStrength * 0.18;
-                 const damping = lerp(0.95, 0.89, t * t); // Damping increases over time
-                 this.vx *= damping; this.vy *= damping;
+                 this.vx += (Math.random() - 0.5) * vibrationStrength * 0.18; this.vy += (Math.random() - 0.5) * vibrationStrength * 0.18;
+                 const damping = lerp(0.95, 0.89, t * t); this.vx *= damping; this.vy *= damping;
 
-                 // Final position includes base lerp, displacement, and vibration
-                 this.currentX = baseX + displaceX + this.vx;
-                 this.currentY = baseY + displaceY + this.vy;
-
-                 // Update rotation (more influence mid-transition)
+                 this.currentX = baseX + displaceX + this.vx; this.currentY = baseY + displaceY + this.vy;
                  this.rotation += this.rotationSpeed * (midTransitionFactor * 2.0 + 0.1);
-             }
 
-             draw(ctx, progress, cssVars) {
-                  const midTransitionFactor = Math.sin(Math.PI * progress);
-                  const t = easeInOutCubic(progress);
+                  // REMOVED: Trigger secondary burst for Spin
+                  /*
+                  if (Math.random() < burstProb && midTransitionFactor > 0.4) {
+                     createBurst(this.currentX, this.currentY, this.currentColor.replace('rgb', 'rgba').replace(')', ', 0.4)'));
+                  }
+                  */
+            }
+             draw(ctx, progress, cssVars) { // No changes needed in draw
+                  const midTransitionFactor = Math.sin(Math.PI * progress); const t = easeInOutCubic(progress);
+                  const ghostOpacity = cssVars['--ghost-opacity']; const particleLength = this.baseLength * (1 + Math.sin(progress * Math.PI * 3) * 0.1);
+                  const particleThickness = this.baseThickness; const particleGlowBlur = cssVars['--particle-glow-blur']; const particleGlowOpacity = cssVars['--particle-glow-opacity'];
 
-                  const ghostOpacity = cssVars['--ghost-opacity'];
-                  // Subtle length pulse animation
-                  const particleLength = this.baseLength * (1 + Math.sin(progress * Math.PI * 3) * 0.1);
-                  const particleThickness = this.baseThickness;
-                  const particleGlowBlur = cssVars['--particle-glow-blur'];
-                  const particleGlowOpacity = cssVars['--particle-glow-opacity'];
-
-                  // Draw Ghost (Softer Fade, Rotational Lag)
-                  if (midTransitionFactor > 0.5 && Math.random() < 0.5) { // Only draw ghosts in the latter half
-                      const ghostProgress = (progress - 0.5) * 2; // 0-1 progress within the ghost phase
-                      const ghostAlpha = midTransitionFactor * ghostOpacity * (1 - ghostProgress * 0.8); // Fade out ghost more strongly towards the end
-                      if (ghostAlpha > 0.02) { // Performance: Don't draw extremely faint ghosts
-                          ctx.save();
-                          ctx.globalAlpha = ghostAlpha;
-                          ctx.translate(this.prevX, this.prevY); // Position at previous frame's location
-                          ctx.rotate(this.rotation - this.rotationSpeed * 3); // Ghost trails rotation slightly more
-                          ctx.fillStyle = this.currentColor;
-                          // Draw ghost as rounded rect too
-                          const r = this.radius;
-                          const halfLength = particleLength / 2; // Use potentially pulsed length
-                          const halfThickness = particleThickness / 2;
-                          ctx.beginPath();
-                          ctx.moveTo(-halfLength + r, -halfThickness);
-                          ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r);
-                          ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
-                          ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r);
-                          ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
-                          ctx.closePath();
-                          ctx.fill();
-                          ctx.restore();
+                  if (midTransitionFactor > 0.5 && Math.random() < 0.5) {
+                      const ghostProgress = (progress - 0.5) * 2; const ghostAlpha = midTransitionFactor * ghostOpacity * (1 - ghostProgress * 0.8);
+                      if (ghostAlpha > 0.02) {
+                          ctx.save(); ctx.globalAlpha = ghostAlpha; ctx.translate(this.prevX, this.prevY); ctx.rotate(this.rotation - this.rotationSpeed * 3); ctx.fillStyle = this.currentColor;
+                          const r = this.radius; const halfLength = particleLength / 2; const halfThickness = particleThickness / 2;
+                          ctx.beginPath(); ctx.moveTo(-halfLength + r, -halfThickness);
+                          ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r); ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
+                          ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r); ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
+                          ctx.closePath(); ctx.fill(); ctx.restore();
                       }
                   }
 
-                  // Draw Main Particle (Rounded Rect)
                   ctx.save();
-                  const glowIntensity = (midTransitionFactor * 0.7 + 0.3) * particleGlowOpacity; // More consistent base glow
+                  const glowIntensity = (midTransitionFactor * 0.7 + 0.3) * particleGlowOpacity;
                   if (glowIntensity > 0.05) {
-                     const finalBlur = particleGlowBlur * (midTransitionFactor * 0.8 + 0.2); // Vary blur less extremely
-                     if (finalBlur > 0.5) {
-                         // Derive glow color from particle color with modulated alpha
-                         const glowColor = this.currentColor.replace('rgb', 'rgba').replace(')', `, ${glowIntensity * 0.8})`);
-                         ctx.shadowColor = glowColor;
-                         ctx.shadowBlur = finalBlur;
-                     } else { ctx.shadowBlur = 0; }
+                     const finalBlur = particleGlowBlur * (midTransitionFactor * 0.8 + 0.2);
+                     if (finalBlur > 0.5) { const glowColor = this.currentColor.replace('rgb', 'rgba').replace(')', `, ${glowIntensity * 0.8})`); ctx.shadowColor = glowColor; ctx.shadowBlur = finalBlur; }
+                     else { ctx.shadowBlur = 0; }
                   } else { ctx.shadowBlur = 0; }
 
-                  ctx.translate(this.currentX, this.currentY);
-                  ctx.rotate(this.rotation);
-                  ctx.fillStyle = this.currentColor;
-                  // Draw main particle as rounded rect
-                  const r = this.radius;
-                  const halfLength = particleLength / 2; // Use potentially pulsed length
-                  const halfThickness = particleThickness / 2;
-                  ctx.beginPath();
-                  ctx.moveTo(-halfLength + r, -halfThickness);
-                  ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r);
-                  ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
-                  ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r);
-                  ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
-                  ctx.closePath();
-                  ctx.fill();
-                  ctx.restore();
+                  ctx.translate(this.currentX, this.currentY); ctx.rotate(this.rotation); ctx.fillStyle = this.currentColor;
+                  const r = this.radius; const halfLength = particleLength / 2; const halfThickness = particleThickness / 2;
+                  ctx.beginPath(); ctx.moveTo(-halfLength + r, -halfThickness);
+                  ctx.arcTo( halfLength, -halfThickness,  halfLength,  halfThickness, r); ctx.arcTo( halfLength,  halfThickness, -halfLength,  halfThickness, r);
+                  ctx.arcTo(-halfLength,  halfThickness, -halfLength, -halfThickness, r); ctx.arcTo(-halfLength, -halfThickness,  halfLength, -halfThickness, r);
+                  ctx.closePath(); ctx.fill(); ctx.restore();
              }
          }
 
         function setupSpinEffect(fromSection, toSection) {
             document.documentElement.style.setProperty('--transition-duration', `${spinTransitionDuration}ms`);
-            resizeCanvas();
-            canvas.style.backgroundColor = 'transparent';
-            canvas.style.mixBlendMode = 'screen'; // Screen blend mode
-            canvas.style.display = 'block';
-            updatePageGlow(toSection); // Transition page glow
-            spinPulseActive = true; // Activate the initial pulse effect
+            resizeTransitionCanvas();
+            transitionCanvas.style.backgroundColor = 'transparent';
+            transitionCanvas.style.mixBlendMode = 'screen';
+            transitionCanvas.style.display = 'block';
+            updatePageGlow(toSection);
+            spinPulseActive = true;
 
-            const cssVars = cacheCSSVars(spinCSSVarNames); // Cache relevant CSS vars
+            const cssVars = cacheCSSVars(spinCSSVarNames);
             const particleLength = cssVars['--particle-length'];
             const particleThickness = cssVars['--particle-thickness'];
 
-            // Generate particle data
             const outgoingPixelData = getTextPixelData(fromSection, particleLength, particleThickness, spinParticleDensity, spinMaxParticles);
             const incomingPixelData = getTextPixelData(toSection, particleLength, particleThickness, spinParticleDensity, spinMaxParticles);
 
             if (outgoingPixelData.length === 0) { console.warn("Spin: Outgoing generation failed."); completeTransition(false); return; }
 
-            // Create particles
             spinParticles = outgoingPixelData.map(p => new SpinParticle(p.x, p.y, p.color, cssVars));
             const hasIncomingData = incomingPixelData.length > 0;
 
-            // Assign targets
             spinParticles.forEach((particle, index) => {
                 let targetData, targetColor;
-                 if (hasIncomingData) {
-                     targetData = incomingPixelData[index % incomingPixelData.length];
-                     targetColor = targetData.color;
-                 } else { // Fallback if incoming data fails
-                     const fallbackColors = toSection.querySelector('.section-data').dataset;
-                     targetData = { x: particle.initialX, y: particle.initialY };
-                     targetColor = index % 2 === 0 ? (fallbackColors.color1 || '#ddff55') : (fallbackColors.color2 || '#bbcc33');
-                 }
+                 if (hasIncomingData) { targetData = incomingPixelData[index % incomingPixelData.length]; targetColor = targetData.color; }
+                 else { const fallbackColors = toSection.querySelector('.section-data').dataset; targetData = { x: particle.initialX, y: particle.initialY }; targetColor = index % 2 === 0 ? (fallbackColors.color1 || '#ddff55') : (fallbackColors.color2 || '#bbcc33'); }
                  particle.assignTarget(targetData.x, targetData.y, targetColor);
              });
-
             if (!hasIncomingData) { console.warn("Spin: Incoming generation failed. Morphing color only."); }
 
-            transitionStartTime = 0;
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            currentFrameCSSVars = cssVars; // Store cached vars for animation
-            animationFrameId = requestAnimationFrame(animateSpin);
+            transitionStartTime = 0; secondaryBursts = []; // Clear bursts array (precaution)
+            if (transitionAnimationFrameId) cancelAnimationFrame(transitionAnimationFrameId);
+            currentFrameCSSVars = cssVars;
+            transitionAnimationFrameId = requestAnimationFrame(animateSpin);
         }
 
-        // Draw the initial outward pulse for Spin effect
-        function drawSpinPulse(progress, cssVars) {
-             if (!spinPulseActive) return; // Only draw if active
-             const pulseDurationFraction = 0.15; // Pulse lasts for first 15% of transition
-             if (progress > pulseDurationFraction) {
-                 spinPulseActive = false; // Deactivate after duration
-                 return;
-             }
+        function drawSpinPulse(ctx, progress, cssVars) { // Now accepts context
+             if (!spinPulseActive) return;
+             const pulseDurationFraction = 0.15;
+             if (progress > pulseDurationFraction) { spinPulseActive = false; return; }
 
-             const pulseProgress = progress / pulseDurationFraction; // Normalize progress 0-1 for pulse
-             const pulseEase = 1 - Math.pow(1 - pulseProgress, 3); // Ease out cubic - starts fast, slows down
+             const pulseProgress = progress / pulseDurationFraction;
+             const pulseEase = 1 - Math.pow(1 - pulseProgress, 3);
+             const maxRadius = Math.min(transitionCanvas.width, transitionCanvas.height) * 0.4;
+             const currentRadius = maxRadius * pulseEase;
+             const currentOpacity = (1 - pulseEase) * 0.8;
 
-             const maxRadius = Math.min(canvas.width, canvas.height) * 0.4; // Max radius relative to screen size
-             const currentRadius = maxRadius * pulseEase; // Radius expands based on eased progress
-             const currentOpacity = (1 - pulseEase) * 0.8; // Opacity fades out as radius expands
-
-             if (currentOpacity > 0.01) { // Perf: Don't draw if nearly invisible
-                 ctx.save();
-                 ctx.beginPath();
-                 ctx.arc(canvas.width / 2, canvas.height / 2, currentRadius, 0, Math.PI * 2);
-                 // Set fillStyle using the CSS variable color and calculated opacity
+             if (currentOpacity > 0.01) {
+                 ctx.save(); ctx.beginPath(); ctx.arc(transitionCanvas.width / 2, transitionCanvas.height / 2, currentRadius, 0, Math.PI * 2);
                  ctx.fillStyle = cssVars['--spin-pulse-color'].replace(/[\d\.]+\)$/g, `${currentOpacity.toFixed(3)})`);
-                 ctx.fill();
-                 ctx.restore();
+                 ctx.fill(); ctx.restore();
              }
         }
 
-
-        function animateSpin(timestamp) {
+        function animateSpin(timestamp) { // drawBursts call REMOVED
             if (!transitionStartTime) transitionStartTime = timestamp;
             const elapsed = timestamp - transitionStartTime;
             let progress = Math.min(elapsed / spinTransitionDuration, 1);
+            const cssVars = currentFrameCSSVars;
 
-            const cssVars = currentFrameCSSVars; // Use cached vars
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw the initial pulse effect first (will only draw if active)
-            drawSpinPulse(progress, cssVars);
+            transitionCtx.clearRect(0, 0, transitionCanvas.width, transitionCanvas.height);
+            drawSpinPulse(transitionCtx, progress, cssVars); // Pass context
 
             // Update and draw particles
             for (let i = 0; i < spinParticles.length; i++) {
                  const p = spinParticles[i];
                  p.update(progress, cssVars);
-                 p.draw(ctx, progress, cssVars);
+                 p.draw(transitionCtx, progress, cssVars); // Pass context
              }
+            // drawBursts(transitionCtx); // <<<< REMOVED for Spin transition
 
             // Reset canvas state
-            ctx.shadowBlur = 0;
-            ctx.shadowColor = 'transparent';
-            ctx.globalAlpha = 1.0;
+            transitionCtx.shadowBlur = 0;
+            transitionCtx.shadowColor = 'transparent';
+            transitionCtx.globalAlpha = 1.0;
 
             if (progress < 1) {
-                animationFrameId = requestAnimationFrame(animateSpin);
+                transitionAnimationFrameId = requestAnimationFrame(animateSpin);
             } else {
                 spinPulseActive = false; // Ensure pulse is deactivated at the end
                 completeTransition();
@@ -1174,12 +1058,11 @@
         }
 
 
-        // --- EFFECT 3: Decoherence Transition (Enhanced CSS Animations) ---
+        // --- EFFECT 3: Decoherence Transition ---
         const decoherenceDataStreamOverlay = document.getElementById('data-stream-overlay');
         let decoherenceTextCorruptionInterval = null;
         let decoherenceTransitionTimeout = null;
 
-        // Cache CSS Vars specific to Decoherence timings and effects
         const decoherenceCSSVarNames = [
              '--deco-glitch-duration', '--deco-burst-duration', '--deco-settle-duration',
              '--deco-ghost-duration', '--corruption-interval', '--corruption-rate', '--corruption-char-pool',
@@ -1187,7 +1070,7 @@
          ];
 
         function setupDecoherenceEffect(fromSection, toSection) {
-            const cssVars = cacheCSSVars(decoherenceCSSVarNames); // Cache vars
+            const cssVars = cacheCSSVars(decoherenceCSSVarNames);
             const glitchDuration = cssVars['--deco-glitch-duration'];
             const burstDuration = cssVars['--deco-burst-duration'];
             const settleDuration = cssVars['--deco-settle-duration'];
@@ -1196,57 +1079,44 @@
             const corruptionRate = cssVars['--corruption-rate'];
             const corruptionPool = cssVars['--corruption-char-pool'];
 
-            canvas.style.display = 'none'; // Hide canvas for this effect
-            updatePageGlow(toSection, true); // Update glow instantly
+            transitionCanvas.style.display = 'none'; // Hide transition canvas
+            updatePageGlow(toSection, true);
 
-            body.classList.add('transitioning-decoherence'); // Activate overlay animations
-            fromSection.classList.add('glitching'); // Start glitching outgoing section
-            fromSection.style.zIndex = 1; // Ensure outgoing is initially visible but below incoming later
-            toSection.style.zIndex = 2; // Prepare incoming section above outgoing
+            body.classList.add('transitioning-decoherence');
+            blockFlashOverlay.classList.add('active'); // Activate block flash
+            fromSection.classList.add('glitching');
+            fromSection.style.zIndex = 1; toSection.style.zIndex = 2;
 
-            // Start text corruption on the outgoing section
-            const elementsToCorrupt = fromSection.querySelectorAll('[data-original-text]'); // Target elements with original text stored
+            const elementsToCorrupt = fromSection.querySelectorAll('[data-original-text]');
             if (decoherenceTextCorruptionInterval) clearInterval(decoherenceTextCorruptionInterval);
-            decoherenceTextCorruptionInterval = setInterval(() => {
-                elementsToCorrupt.forEach(el => corruptText(el, corruptionPool, corruptionRate));
-            }, corruptionIntervalMs);
+            if (!prefersReducedMotion) { // Only corrupt if not reduced motion
+                decoherenceTextCorruptionInterval = setInterval(() => {
+                    elementsToCorrupt.forEach(el => corruptText(el, corruptionPool, corruptionRate));
+                }, corruptionIntervalMs);
+            }
 
-            // Clear any previous timeout
             if (decoherenceTransitionTimeout) clearTimeout(decoherenceTransitionTimeout);
-
-            // Calculate time to switch from glitching to ghosting/settling
-            // Slightly before the glitch animation ends to allow burst overlay to show
             const snapTime = glitchDuration - (burstDuration * 0.4);
 
             decoherenceTransitionTimeout = setTimeout(() => {
-                // Stop corrupting outgoing text
                 if (decoherenceTextCorruptionInterval) clearInterval(decoherenceTextCorruptionInterval);
                 decoherenceTextCorruptionInterval = null;
-                restoreText(fromSection); // Clean up outgoing text before ghosting
+                restoreText(fromSection); // Restore before ghosting
 
-                // Transition States: Outgoing -> Ghost, Incoming -> Settle
-                toSection.classList.add('active', 'settling'); // Make incoming active and start settle animation
-                restoreText(toSection); // Ensure target text is clean
+                blockFlashOverlay.classList.remove('active'); // Deactivate block flash
+                toSection.classList.add('active', 'settling');
+                restoreText(toSection);
 
-                fromSection.classList.remove('glitching'); // Stop glitch animation
-                fromSection.classList.add('ghosting');   // Start ghost fade/smear animation
+                fromSection.classList.remove('glitching');
+                fromSection.classList.add('ghosting');
 
-                // Timeout to remove settling class from incoming section
+                setTimeout(() => { toSection.classList.remove('settling'); }, settleDuration);
+
                 setTimeout(() => {
-                    toSection.classList.remove('settling');
-                }, settleDuration);
-
-                // Timeout to fully hide outgoing section and complete transition
-                setTimeout(() => {
-                    fromSection.classList.remove('active', 'ghosting'); // Hide outgoing completely
-                    // Reset styles applied by animations/state
-                    fromSection.style.zIndex = 1;
-                    fromSection.style.transform = '';
-                    fromSection.style.clipPath = '';
-                    fromSection.style.filter = '';
-                    fromSection.style.color = ''; // Reset color changed by ghosting
-                    body.classList.remove('transitioning-decoherence'); // Deactivate overlays
-                    completeTransition(); // Final cleanup and state reset
+                    fromSection.classList.remove('active', 'ghosting');
+                    fromSection.style.zIndex = 1; fromSection.style.transform = ''; fromSection.style.clipPath = ''; fromSection.style.filter = ''; fromSection.style.color = '';
+                    body.classList.remove('transitioning-decoherence');
+                    completeTransition();
                 }, ghostDuration);
 
             }, snapTime);
@@ -1254,382 +1124,383 @@
 
         // Decoherence Text Helpers
         function setupTextData() {
-             // Store original text content in data attributes for restoration
              const decoSections = document.querySelectorAll('#section-decoherence-1, #section-decoherence-2');
              decoSections.forEach(section => {
                  const elementsWithText = section.querySelectorAll('h1, p, .nav-button');
                  elementsWithText.forEach(el => {
-                    if (el) {
-                        // Store original text only if not already stored
-                        if (!el.hasAttribute('data-original-text')) {
-                            const text = el.textContent?.trim() || '';
-                            el.setAttribute('data-original-text', text);
-                        }
+                    if (el && !el.hasAttribute('data-original-text')) {
+                        const text = el.textContent?.trim() || '';
+                        el.setAttribute('data-original-text', text);
                     }
                  });
              });
          }
         function corruptText(element, pool, rate) {
             if (!element || !pool) return;
-            const originalChars = element.getAttribute('data-original-text')?.split(''); // Read original text
+            const originalChars = element.getAttribute('data-original-text')?.split('');
             if (!originalChars || originalChars.length === 0) return;
-
-            const len = originalChars.length;
-            let output = '';
-            const poolChars = pool; // Use provided character pool
-            const poolLen = poolChars.length;
-            if (poolLen === 0) { // Fallback if pool is empty
-                 if (element.textContent !== element.getAttribute('data-original-text')) {
-                     element.textContent = element.getAttribute('data-original-text');
-                 }
-                 return;
-            }
-
-            for (let i = 0; i < len; i++) {
-                const char = originalChars[i];
-                // Keep spaces or corrupt based on rate
-                if (char === ' ' || Math.random() > rate) {
-                    output += char;
-                } else {
-                    // Replace with a random character from the pool
-                    output += poolChars[Math.floor(Math.random() * poolLen)];
-                }
-            }
-            // Update textContent directly - generally performant enough for this effect
+            const len = originalChars.length; let output = ''; const poolChars = pool; const poolLen = poolChars.length;
+            if (poolLen === 0) { if (element.textContent !== element.getAttribute('data-original-text')) { element.textContent = element.getAttribute('data-original-text'); } return; }
+            for (let i = 0; i < len; i++) { const char = originalChars[i]; if (char === ' ' || Math.random() > rate) { output += char; } else { output += poolChars[Math.floor(Math.random() * poolLen)]; } }
             element.textContent = output;
         }
         function restoreText(section) {
             if (!section) return;
             const elementsWithText = section.querySelectorAll('[data-original-text]');
-            elementsWithText.forEach(el => {
-                const original = el.getAttribute('data-original-text');
-                if (original !== null && el.textContent !== original) {
-                    el.textContent = original; // Restore original text
-                }
-            });
+            elementsWithText.forEach(el => { const original = el.getAttribute('data-original-text'); if (original !== null && el.textContent !== original) { el.textContent = original; } });
         }
         function generateDataStreamContent(overlayElement, lines = 50, cols = 100) {
+             let content = ''; const pool = getComputedStyle(document.documentElement).getPropertyValue('--corruption-char-pool').trim() || "01"; const chars = Array.from(pool.replace(/[█▓▒░ "]/g,'')); if (chars.length === 0) chars.push('0','1');
+             for (let i = 0; i < lines * 2; i++) { for (let j = 0; j < cols; j++) { content += chars[Math.floor(Math.random() * chars.length)]; } content += '\n'; }
+             overlayElement.textContent = content;
+         }
+         function generateBlockFlashContent(overlayElement) { // Generate content for block flash overlay
              let content = '';
-             // Use the character pool from CSS, excluding visual blocks/spaces
-             const pool = getComputedStyle(document.documentElement).getPropertyValue('--corruption-char-pool').trim() || "01";
-             const chars = Array.from(pool.replace(/[█▓▒░ "]/g,'')); // Remove spaces and block chars
-             if (chars.length === 0) chars.push('0','1'); // Fallback
-
-             // Generate double height for seamless vertical scroll loop
-             for (let i = 0; i < lines * 2; i++) {
+             const chars = ['█', '▓', '▒', '░', ' ']; // Characters to flash
+             const rows = Math.ceil(window.innerHeight / 16); // Estimate rows based on font size
+             const cols = Math.ceil(window.innerWidth / 9); // Estimate columns based on font size
+             for (let i = 0; i < rows; i++) {
                  for (let j = 0; j < cols; j++) {
                      content += chars[Math.floor(Math.random() * chars.length)];
                  }
                  content += '\n';
              }
-             overlayElement.textContent = content; // Set content once
-        }
+             overlayElement.textContent = content;
+         }
 
-        // --- Master Transition Control (Updated Glow Handling) ---
+        // --- Master Transition Control ---
         function triggerMasterTransition(direction) {
-            if (isAnimating) return; // Prevent overlapping transitions
+            if (isAnimating) return;
+
+            // Stop idle animations immediately
+            if (idleAnimationFrameId) cancelAnimationFrame(idleAnimationFrameId);
+            idleAnimationFrameId = null;
+             // Also remove idle CSS classes from text elements if active
+            const currentlyActive = document.querySelector('.section.active');
+            if (currentlyActive) {
+                currentlyActive.querySelectorAll('h1, p').forEach(el => el.style.animation = 'none'); // Quick way to stop CSS anim
+            }
+
+
+            isAnimating = true; // Set transition flag
 
             const currentEffectSections = sectionsPerEffect[currentEffectIndex];
             const currentActiveSection = currentEffectSections[currentSectionIndexInEffect];
 
-            let nextEffectIndex = currentEffectIndex;
-            let nextSectionIndexInEffect = currentSectionIndexInEffect;
+            let nextEffectIndex = currentEffectIndex; let nextSectionIndexInEffect = currentSectionIndexInEffect;
 
-            // Calculate next section indices, handling wrap-around
             if (direction === 'down') {
                  nextSectionIndexInEffect++;
-                 if (nextSectionIndexInEffect >= currentEffectSections.length) {
-                     nextEffectIndex = (currentEffectIndex + 1) % totalEffects;
-                     nextSectionIndexInEffect = 0;
-                 }
-            } else { // direction === 'up'
+                 if (nextSectionIndexInEffect >= currentEffectSections.length) { nextEffectIndex = (currentEffectIndex + 1) % totalEffects; nextSectionIndexInEffect = 0; }
+            } else {
                  nextSectionIndexInEffect--;
-                 if (nextSectionIndexInEffect < 0) {
-                     nextEffectIndex = (currentEffectIndex - 1 + totalEffects) % totalEffects;
-                     nextSectionIndexInEffect = sectionsPerEffect[nextEffectIndex].length - 1;
-                 }
+                 if (nextSectionIndexInEffect < 0) { nextEffectIndex = (currentEffectIndex - 1 + totalEffects) % totalEffects; nextSectionIndexInEffect = sectionsPerEffect[nextEffectIndex].length - 1; }
             }
 
-            // If no change in section, do nothing
-            if (nextEffectIndex === currentEffectIndex && nextSectionIndexInEffect === currentSectionIndexInEffect) return;
-
-            isAnimating = true; // Set animation flag
+            if (nextEffectIndex === currentEffectIndex && nextSectionIndexInEffect === currentSectionIndexInEffect) {
+                isAnimating = false;
+                startIdleAnimations(); // No change, restart idle
+                // Re-apply idle animation styles if needed
+                 if (currentlyActive) {
+                    currentlyActive.querySelectorAll('h1, p').forEach(el => el.style.animation = ''); // Restore CSS anim
+                 }
+                return;
+            }
 
             const nextEffectSections = sectionsPerEffect[nextEffectIndex];
             const nextActiveSection = nextEffectSections[nextSectionIndexInEffect];
-            // Determine the effect type based on the TARGET section's group
             const effectType = effectTypes[nextEffectIndex];
 
-            currentActiveSection.classList.remove('active'); // Deactivate current section visually
+            currentActiveSection.classList.remove('active'); // Visually deactivate
 
-            // --- Trigger the appropriate setup function based on the target effect ---
-             switch(effectType) {
-                case 'system':
-                    setupSystemEffect(currentActiveSection, nextActiveSection);
-                    break;
-                case 'entangled':
-                    setupEntangledEffect(currentActiveSection, nextActiveSection);
-                    break;
-                case 'spin':
-                    setupSpinEffect(currentActiveSection, nextActiveSection);
-                    break;
+            switch(effectType) {
+                case 'system': setupSystemEffect(currentActiveSection, nextActiveSection); break;
+                case 'entangled': setupEntangledEffect(currentActiveSection, nextActiveSection); break;
+                case 'spin': setupSpinEffect(currentActiveSection, nextActiveSection); break;
                 case 'decoherence':
-                    // Decoherence handles its own completion and index update
+                    currentEffectIndex = nextEffectIndex; currentSectionIndexInEffect = nextSectionIndexInEffect; // Update indices before async call
                     setupDecoherenceEffect(currentActiveSection, nextActiveSection);
-                    // IMPORTANT: Update indices *before* calling setup for Decoherence,
-                    // as it uses timeouts and manages its own completion flow.
-                    currentEffectIndex = nextEffectIndex;
-                    currentSectionIndexInEffect = nextSectionIndexInEffect;
-                    return; // Let Decoherence manage its completion
+                    return; // Decoherence handles its own completion
                 default:
-                     console.error("Unknown effect type:", effectType);
-                     // Failsafe: Re-activate current section and stop animation
-                     isAnimating = false;
-                     currentActiveSection.classList.add('active');
-                     updatePageGlow(currentActiveSection); // Restore glow
-                     return;
+                     console.error("Unknown effect type:", effectType); isAnimating = false; currentActiveSection.classList.add('active'); updatePageGlow(currentActiveSection); startIdleAnimations(); return;
             }
-
-             // Update indices AFTER setup call for non-Decoherence transitions
-             currentEffectIndex = nextEffectIndex;
-             currentSectionIndexInEffect = nextSectionIndexInEffect;
+            currentEffectIndex = nextEffectIndex; currentSectionIndexInEffect = nextSectionIndexInEffect;
         }
 
         // --- Page Glow Update Helper ---
         function updatePageGlow(targetSection, immediate = false) {
-            if (!targetSection) return; // Safety check
-
+            if (!targetSection) return;
             const colorElement = targetSection.querySelector('.system-colors') || targetSection.querySelector('.section-data');
-            let glowColor = getComputedStyle(document.documentElement).getPropertyValue('--page-glow-color').trim(); // Default fallback
+            let glowColor = getComputedStyle(document.documentElement).getPropertyValue('--page-glow-color').trim();
+            if (colorElement && colorElement.dataset.glow) { glowColor = colorElement.dataset.glow; }
+            else if (colorElement && colorElement.dataset.color1) { try { const [r, g, b] = parseHexColor(colorElement.dataset.color1); glowColor = `rgba(${r}, ${g}, ${b}, 0.6)`; } catch (e) {} }
+            else if (targetSection.id.includes('decoherence')) { glowColor = 'rgba(0, 187, 255, 0.6)'; }
 
-            if (colorElement && colorElement.dataset.glow) {
-                glowColor = colorElement.dataset.glow; // Use explicit glow color if defined
-            } else if (colorElement && colorElement.dataset.color1) {
-                // Fallback: generate glow from color1 if data-glow is missing
-                try {
-                    const [r, g, b] = parseHexColor(colorElement.dataset.color1);
-                    glowColor = `rgba(${r}, ${g}, ${b}, 0.6)`; // Default alpha if generating
-                } catch (e) { /* Ignore parse errors, use default */ }
-            } else if (targetSection.id.includes('decoherence')) {
-                 // Specific fallback glow for decoherence sections
-                 glowColor = 'rgba(0, 187, 255, 0.6)';
-            }
-
-            const glowElement = document.body; // Apply to body::before
-
-            // Apply change immediately or allow transition
-            if (immediate) {
-                glowElement.style.transition = 'none'; // Temporarily disable transition
-            }
+            const glowElement = document.body;
+            if (immediate) glowElement.style.transition = 'none';
             glowElement.style.setProperty('--page-glow-color', glowColor);
-
-            // Force reflow/repaint might be needed in some browsers for instant transition change
-            if (immediate) {
-                 glowElement.offsetHeight; // Read property to force reflow
-                 requestAnimationFrame(() => { // Restore transition in next frame
-                    glowElement.style.transition = '';
-                 });
-            }
+            if (immediate) { glowElement.offsetHeight; requestAnimationFrame(() => { glowElement.style.transition = ''; }); }
         }
 
 
         // --- Complete Transition (Robust Cleanup) ---
         function completeTransition(showNext = true) {
-            if (animationFrameId) cancelAnimationFrame(animationFrameId); // Stop any canvas animation
-            animationFrameId = null;
+            if (transitionAnimationFrameId) cancelAnimationFrame(transitionAnimationFrameId);
+            transitionAnimationFrameId = null;
 
-            // Clean up canvas state
-            canvas.style.display = 'none';
-            canvas.style.backgroundColor = 'transparent';
-            canvas.style.mixBlendMode = 'screen'; // Reset blend mode
+            transitionCanvas.style.display = 'none'; transitionCanvas.style.backgroundColor = 'transparent'; transitionCanvas.style.mixBlendMode = 'screen';
+            systemParticles = []; entangledParticles = []; spinParticles = []; secondaryBursts = [];
+            currentFrameCSSVars = {}; spinPulseActive = false;
+            if (decoherenceTextCorruptionInterval) clearInterval(decoherenceTextCorruptionInterval); decoherenceTextCorruptionInterval = null;
+            if (decoherenceTransitionTimeout) clearTimeout(decoherenceTransitionTimeout); decoherenceTransitionTimeout = null;
+            body.classList.remove('transitioning-decoherence');
+            blockFlashOverlay.classList.remove('active'); // Ensure block flash is off
 
-            // Clear particle arrays
-            systemParticles = [];
-            entangledParticles = [];
-            spinParticles = [];
-
-            // Reset shared state variables
-            currentFrameCSSVars = {};
-            spinPulseActive = false;
-            if (decoherenceTextCorruptionInterval) clearInterval(decoherenceTextCorruptionInterval);
-            decoherenceTextCorruptionInterval = null;
-            if (decoherenceTransitionTimeout) clearTimeout(decoherenceTransitionTimeout);
-            decoherenceTransitionTimeout = null;
-            body.classList.remove('transitioning-decoherence'); // Ensure decoherence body class is removed
-
-            // Determine the section that should be active
             const finalActiveSection = sectionsPerEffect[currentEffectIndex]?.[currentSectionIndexInEffect];
 
-            // Clean up ALL sections' state classes and styles from transitions
             allSections.forEach(s => {
                 s.classList.remove('active', 'glitching', 'ghosting', 'settling');
-                s.style.transform = '';
-                s.style.clipPath = '';
-                s.style.filter = '';
-                s.style.color = ''; // Reset potential ghost color
-                restoreText(s); // Ensure text is restored on all sections
+                s.style.transform = ''; s.style.clipPath = ''; s.style.filter = ''; s.style.color = '';
+                restoreText(s);
+                 // Ensure idle CSS animations are stopped/reset on all sections after transition
+                s.querySelectorAll('h1, p').forEach(el => el.style.animation = '');
             });
 
-            // Activate the correct final section
-            if (showNext && finalActiveSection) {
-                finalActiveSection.classList.add('active');
-                updatePageGlow(finalActiveSection, true); // Set final page glow instantly
-            } else if (!showNext && finalActiveSection) {
-                 // If transition failed (showNext=false), still try to show the intended section
-                 finalActiveSection.classList.add('active');
-                 updatePageGlow(finalActiveSection, true);
-            }
-             else {
-                // Absolute fallback: activate the very first section
-                console.error("Target section not found on completion, activating first section.");
-                allSections[0]?.classList.add('active');
-                updatePageGlow(allSections[0], true);
-            }
+            if (showNext && finalActiveSection) { finalActiveSection.classList.add('active'); updatePageGlow(finalActiveSection, true); }
+            else if (!showNext && finalActiveSection) { finalActiveSection.classList.add('active'); updatePageGlow(finalActiveSection, true); }
+            else { console.error("Target section not found on completion, activating first section."); allSections[0]?.classList.add('active'); updatePageGlow(allSections[0], true); }
 
             isAnimating = false; // Allow new transitions
             transitionStartTime = 0;
+            startIdleAnimations(); // Restart idle animations for the new active section
         }
 
         // --- Utility & Setup ---
-        function resizeCanvas() {
+        function resizeCanvases() { // Resizes both canvases
             const newWidth = window.innerWidth;
             const newHeight = window.innerHeight;
-            // Only resize and potentially clear cache if dimensions actually changed
-            if (canvas.width !== newWidth || canvas.height !== newHeight) {
-                canvas.width = newWidth;
-                canvas.height = newHeight;
 
-                 // Optimization: Check if resize is significant before clearing expensive cache
+            let resized = false;
+            if (transitionCanvas.width !== newWidth || transitionCanvas.height !== newHeight) {
+                transitionCanvas.width = newWidth; transitionCanvas.height = newHeight;
+                backgroundCanvas.width = newWidth; backgroundCanvas.height = newHeight; // Keep them same size
+                resized = true;
+            }
+
+            if (resized) {
                  const widthChange = Math.abs(newWidth - lastCanvasWidth);
                  const heightChange = Math.abs(newHeight - lastCanvasHeight);
-                 const significantResizeThreshold = 50; // Pixels
-
+                 const significantResizeThreshold = 50;
                  if (widthChange > significantResizeThreshold || heightChange > significantResizeThreshold || lastCanvasWidth === 0) {
-                     // console.log("Significant resize, clearing text pixel cache.");
-                     textPixelDataCache.clear();
-                     // Mark dimensions as unknown so cache check fails next time
-                     lastCanvasWidth = 0;
-                     lastCanvasHeight = 0;
+                     textPixelDataCache.clear(); lastCanvasWidth = 0; lastCanvasHeight = 0;
+                     // Reinitialize background particles on significant resize
+                     initBgParticles();
+                     // Regenerate block flash content for new size
+                     generateBlockFlashContent(blockFlashOverlay);
                  }
-                 // Note: We don't update lastCanvasWidth/Height here, only in getTextPixelData
-                 // after a *successful* regeneration.
             }
         }
-        window.addEventListener('resize', resizeCanvas);
+        // Specific resizer for transition canvas only (used before text sampling)
+        function resizeTransitionCanvas() {
+             const newWidth = window.innerWidth; const newHeight = window.innerHeight;
+             if (transitionCanvas.width !== newWidth || transitionCanvas.height !== newHeight) {
+                 transitionCanvas.width = newWidth; transitionCanvas.height = newHeight;
+                 // No need to clear cache here, getTextPixelData handles it
+             }
+        }
+        window.addEventListener('resize', resizeCanvases);
 
         // Interaction Handling
-        let lastInteractionTime = 0;
-        const interactionThrottle = 350; // ms - Throttle time between scroll/key events
+        let lastInteractionTime = 0; const interactionThrottle = 350;
+        const handleInteraction = (direction) => { const now = Date.now(); if (!isAnimating && now - lastInteractionTime > interactionThrottle) { lastInteractionTime = now; triggerMasterTransition(direction); } };
+        window.addEventListener('wheel', (event) => { if (Math.abs(event.deltaY) > 10) { handleInteraction(event.deltaY > 0 ? 'down' : 'up'); } }, { passive: true });
+        window.addEventListener('keydown', (event) => { let direction = null; if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(event.key)) direction = 'down'; else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(event.key)) direction = 'up'; if (direction) { event.preventDefault(); handleInteraction(direction); } });
+        let touchStartY = 0; let touchDidMove = false;
+        window.addEventListener('touchstart', (e) => { if (e.touches.length === 1) { touchStartY = e.touches[0].clientY; touchDidMove = false; } }, { passive: true });
+        window.addEventListener('touchmove', (e) => { if (e.touches.length === 1 && Math.abs(e.touches[0].clientY - touchStartY) > 10) { touchDidMove = true; } }, { passive: true });
+        window.addEventListener('touchend', (e) => { if (e.changedTouches.length === 1 && touchDidMove) { const touchEndY = e.changedTouches[0].clientY; const swipeThreshold = 40; if (Math.abs(touchEndY - touchStartY) > swipeThreshold) { handleInteraction(touchEndY < touchStartY ? 'down' : 'up'); } } touchStartY = 0; touchDidMove = false; }, { passive: true });
+        mainElement.addEventListener('click', (event) => { if (event.target.matches('.nav-button') && !isAnimating) { const targetId = event.target.dataset.target; if (targetId) { let targetEffectIndex = -1; let targetSectionIndex = -1; sectionsPerEffect.forEach((group, eIndex) => group.forEach((sec, sIndex) => { if (sec.id === targetId.substring(1)) { targetEffectIndex = eIndex; targetSectionIndex = sIndex; } })); if (targetEffectIndex !== -1 && targetSectionIndex !== -1) { const direction = (targetSectionIndex > currentSectionIndexInEffect) ? 'down' : 'up'; handleInteraction(direction); } } } });
 
-        const handleInteraction = (direction) => {
-            const now = Date.now();
-            // Only trigger if not animating and throttle period has passed
-            if (!isAnimating && now - lastInteractionTime > interactionThrottle) {
-                lastInteractionTime = now;
-                triggerMasterTransition(direction);
+        // --- NEW Idle Animation Logic ---
+        function initBgParticles() {
+            bgParticles = [];
+            for (let i = 0; i < NUM_BG_PARTICLES; i++) {
+                bgParticles.push({
+                    x: Math.random() * backgroundCanvas.width,
+                    y: Math.random() * backgroundCanvas.height,
+                    vx: (Math.random() - 0.5) * BG_PARTICLE_SPEED * 2,
+                    vy: (Math.random() - 0.5) * BG_PARTICLE_SPEED * 2,
+                    alpha: Math.random() * 0.3 + 0.1 // Random initial alpha
+                });
             }
-        };
+        }
 
-        // --- Input Listeners (Passive where possible) ---
-        window.addEventListener('wheel', (event) => {
-            // Trigger on significant vertical scroll delta
-            if (Math.abs(event.deltaY) > 10) { // Adjusted sensitivity
-                 handleInteraction(event.deltaY > 0 ? 'down' : 'up');
-            }
-        }, { passive: true }); // Use passive listener for scroll performance
+        function drawBgParticles() {
+             bgCtx.fillStyle = `rgba(180, 200, 255, ${prefersReducedMotion ? 0.1 : 0.3})`; // Base color
+             bgParticles.forEach(p => {
+                 p.x += p.vx; p.y += p.vy;
+                 p.alpha += (Math.random() - 0.5) * 0.01; // Subtle alpha flicker
+                 p.alpha = Math.max(0.05, Math.min(0.4, p.alpha)); // Clamp alpha
 
-        window.addEventListener('keydown', (event) => {
-            let direction = null;
-            // Map keys to directions
-            if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(event.key)) direction = 'down';
-            else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(event.key)) direction = 'up';
+                 // Wrap around edges
+                 if (p.x < -BG_PARTICLE_SIZE) p.x = backgroundCanvas.width + BG_PARTICLE_SIZE;
+                 if (p.x > backgroundCanvas.width + BG_PARTICLE_SIZE) p.x = -BG_PARTICLE_SIZE;
+                 if (p.y < -BG_PARTICLE_SIZE) p.y = backgroundCanvas.height + BG_PARTICLE_SIZE;
+                 if (p.y > backgroundCanvas.height + BG_PARTICLE_SIZE) p.y = -BG_PARTICLE_SIZE;
 
-            if (direction) {
-                event.preventDefault(); // Prevent default scroll/space behavior
-                handleInteraction(direction);
-            }
-        });
+                 bgCtx.globalAlpha = p.alpha;
+                 bgCtx.beginPath();
+                 bgCtx.arc(p.x, p.y, BG_PARTICLE_SIZE, 0, Math.PI * 2);
+                 bgCtx.fill();
+             });
+             bgCtx.globalAlpha = 1.0; // Reset global alpha
+        }
 
-        // Touch controls
-        let touchStartY = 0;
-        let touchDidMove = false; // Flag to distinguish tap from swipe
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) { // Handle single touch
-                touchStartY = e.touches[0].clientY;
-                touchDidMove = false; // Reset move flag
-            }
-        }, { passive: true }); // Passive for performance
+        function drawCursorTrail() {
+             if (prefersReducedMotion) return; // Skip if reduced motion
 
-        window.addEventListener('touchmove', (e) => {
-             if (e.touches.length === 1) {
-                 // Set flag if touch moves significantly
-                 if (Math.abs(e.touches[0].clientY - touchStartY) > 10) {
-                     touchDidMove = true;
-                 }
+             // Add new particle at current mouse position
+             cursorTrailParticles.push({ x: mousePos.x, y: mousePos.y, alpha: 0.6 });
+
+             // Remove oldest particles if trail is too long
+             while (cursorTrailParticles.length > CURSOR_TRAIL_LENGTH) {
+                 cursorTrailParticles.shift();
              }
-        }, { passive: true }); // Passive for performance
 
-        window.addEventListener('touchend', (e) => {
-            // Only trigger if it was a swipe (touchDidMove is true) and a single finger
-            if (e.changedTouches.length === 1 && touchDidMove) {
-                 const touchEndY = e.changedTouches[0].clientY;
-                 const swipeThreshold = 40; // Min vertical distance for a swipe
-                 if (Math.abs(touchEndY - touchStartY) > swipeThreshold) {
-                     handleInteraction(touchEndY < touchStartY ? 'down' : 'up'); // Determine direction
+             // Draw and fade out existing particles
+             bgCtx.lineWidth = 1;
+             bgCtx.strokeStyle = 'rgba(200, 220, 255, 0.5)'; // Trail color
+
+             for (let i = cursorTrailParticles.length - 1; i >= 0; i--) {
+                 const p = cursorTrailParticles[i];
+                 p.alpha -= CURSOR_TRAIL_FADEOUT;
+
+                 if (p.alpha <= 0) {
+                     cursorTrailParticles.splice(i, 1);
+                     continue;
                  }
-            }
-             // Reset state for next touch
-             touchStartY = 0;
-             touchDidMove = false;
-        }, { passive: true }); // Passive for performance
 
-        // Decoherence Button Click Listener (using event delegation on main)
-        mainElement.addEventListener('click', (event) => {
-            if (event.target.matches('.nav-button') && !isAnimating) {
-                const targetId = event.target.dataset.target;
-                if (targetId) {
-                    // Find the index of the target section
-                    let targetEffectIndex = -1;
-                    let targetSectionIndex = -1;
-                    sectionsPerEffect.forEach((group, eIndex) => {
-                        group.forEach((sec, sIndex) => {
-                            if (sec.id === targetId.substring(1)) {
-                                targetEffectIndex = eIndex;
-                                targetSectionIndex = sIndex;
-                            }
-                        });
-                    });
+                 bgCtx.globalAlpha = p.alpha;
+                 bgCtx.beginPath();
+                 // Draw a simple dot or small line segment
+                 bgCtx.arc(p.x, p.y, 1, 0, Math.PI * 2);
+                 // Optional: connect to previous point for a line effect
+                 // if(i > 0) { ctx.moveTo(cursorTrailParticles[i-1].x, cursorTrailParticles[i-1].y); ctx.lineTo(p.x, p.y); }
+                 bgCtx.stroke();
+             }
+             bgCtx.globalAlpha = 1.0;
+         }
 
-                    if (targetEffectIndex !== -1 && targetSectionIndex !== -1) {
-                         // Determine direction based on current vs target (simple check for decoherence)
-                         const direction = (targetSectionIndex > currentSectionIndexInEffect) ? 'down' : 'up';
-                         handleInteraction(direction);
-                    }
+        function drawIdleGrid() {
+            if (prefersReducedMotion) return; // Skip if reduced motion
+
+            // Read CSS vars needed for the idle grid
+            const styles = getComputedStyle(document.documentElement);
+            const gridColor = styles.getPropertyValue('--grid-color').trim() || 'rgba(100, 110, 160, 0.06)';
+            let gridSpacing = parseFloat(styles.getPropertyValue('--grid-spacing').trim()) || 45;
+            const gridWarpIntensity = parseFloat(styles.getPropertyValue('--idle-grid-warp-intensity').trim()) || 0.5; // Use idle warp
+            const gridOpacity = parseFloat(styles.getPropertyValue('--idle-grid-opacity').trim()) || 0.04;
+
+
+            bgCtx.save();
+            bgCtx.lineWidth = 0.3; // Very thin lines
+            bgCtx.strokeStyle = gridColor.replace(/[\d\.]+\)$/g, `${gridOpacity.toFixed(3)})`);
+
+            const warpFrequency = 0.025 * Math.PI * 2; // Slower frequency
+            const timeOffset = performance.now() * 0.00015; // Slower time offset
+            const step = gridSpacing > 35 ? 16 : 8; // Larger step for performance
+
+            bgCtx.beginPath();
+            // Vertical lines (subtly warped)
+            for (let x = gridSpacing / 2; x < backgroundCanvas.width + gridSpacing; x += gridSpacing) {
+                bgCtx.moveTo(x + Math.sin(0 * warpFrequency + timeOffset + x*0.005) * gridWarpIntensity, -gridSpacing);
+                for (let y = -gridSpacing + step; y < backgroundCanvas.height + gridSpacing; y += step) {
+                    bgCtx.lineTo(x + Math.sin(y * warpFrequency + timeOffset + x*0.005) * gridWarpIntensity, y);
                 }
             }
-        });
+            // Horizontal lines (subtly warped)
+            for (let y = gridSpacing / 2; y < backgroundCanvas.height + gridSpacing; y += gridSpacing) {
+                bgCtx.moveTo(-gridSpacing, y + Math.cos(0 * warpFrequency + timeOffset + y*0.005) * gridWarpIntensity);
+                for (let x = -gridSpacing + step; x < backgroundCanvas.width + gridSpacing; x += step) {
+                     bgCtx.lineTo(x, y + Math.cos(x * warpFrequency + timeOffset + y*0.005) * gridWarpIntensity);
+                }
+            }
+            bgCtx.stroke();
+            bgCtx.restore();
+        }
+
+
+        // Main Idle Animation Loop
+        function animateIdle() {
+             if (isAnimating) { // Should not run if a transition is active
+                 idleAnimationFrameId = null;
+                 return;
+             }
+
+             bgCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+             // Draw background elements if not reduced motion
+             if (!prefersReducedMotion) {
+                 drawBgParticles();
+                 drawIdleGrid(); // Draw the subtle idle grid
+                 drawCursorTrail();
+             } else {
+                  // Optionally draw a very simplified background if needed in reduced motion
+             }
+
+
+             idleAnimationFrameId = requestAnimationFrame(animateIdle);
+        }
+
+        // Function to start idle animations
+        function startIdleAnimations() {
+             if (!idleAnimationFrameId && !isAnimating) { // Only start if not already running and no transition
+                // Re-apply idle CSS animations to the currently active section's text
+                const activeSection = document.querySelector('.section.active');
+                if (activeSection) {
+                    activeSection.querySelectorAll('h1, p').forEach(el => el.style.animation = ''); // Remove potential inline style override
+                }
+                animateIdle();
+             }
+        }
+
+        // Mouse Move Listener (Throttled) for Reactive Glow
+        window.addEventListener('mousemove', (event) => {
+            if (prefersReducedMotion) return; // Skip if reduced motion
+
+            const now = Date.now();
+            if (now - lastMouseUpdate > MOUSE_UPDATE_THROTTLE) {
+                lastMouseUpdate = now;
+                mousePos.x = event.clientX;
+                mousePos.y = event.clientY;
+                // Update CSS variables for background glow position
+                requestAnimationFrame(() => {
+                    document.documentElement.style.setProperty('--mouse-x', `${(mousePos.x / window.innerWidth * 100).toFixed(2)}%`);
+                    document.documentElement.style.setProperty('--mouse-y', `${(mousePos.y / window.innerHeight * 100).toFixed(2)}%`);
+                });
+            }
+        }, { passive: true });
+
 
         // --- Initial Setup ---
-        resizeCanvas(); // Initial canvas size
+        resizeCanvases(); // Initial canvas sizes
+        initBgParticles(); // Initialize background particles
         setupTextData(); // Store original text for Decoherence sections
         generateDataStreamContent(decoherenceDataStreamOverlay); // Populate data stream overlay
+        generateBlockFlashContent(blockFlashOverlay); // Populate block flash overlay
 
-        // Set initial active section
         allSections.forEach((sec, index) => {
             sec.classList.toggle('active', index === 0);
-            // Hide decoherence buttons initially if they are not in the active section
             const button = sec.querySelector('.nav-button');
             if (button) button.style.display = (index === 0 && sec.id.includes('decoherence')) ? 'inline-block' : 'none';
         });
 
-        // Set initial canvas dimensions cache
-        lastCanvasWidth = canvas.width;
-        lastCanvasHeight = canvas.height;
+        lastCanvasWidth = transitionCanvas.width; lastCanvasHeight = transitionCanvas.height;
+        updatePageGlow(allSections[0], true); // Set initial page glow instantly
 
-        // Set initial page glow without transition
-        updatePageGlow(allSections[0], true);
+        startIdleAnimations(); // Start the idle animation loop
 
-        console.log("Quantum Transitions Suite Initialized (Enhanced Visuals v2). Scroll or use keys.");
+        console.log("Quantum Transitions Suite Initialized (Enhanced V2 - Fixed Spin).", prefersReducedMotion ? "(Reduced Motion Enabled)" : "");
 
     </script>
 
